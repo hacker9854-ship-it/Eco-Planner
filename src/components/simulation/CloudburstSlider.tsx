@@ -8,6 +8,7 @@ interface CloudburstSliderProps {
   siteAreaHa?: number;
   baselineImperviousPercent?: number;
   intervenedGreenAreaHa?: number;
+  rainfallIntensityMm?: number;
   onRainfallChange?: (intensityMm: number) => void;
   className?: string;
 }
@@ -16,10 +17,12 @@ export const CloudburstSlider: React.FC<CloudburstSliderProps> = ({
   siteAreaHa = 15.0,
   baselineImperviousPercent = 78.5,
   intervenedGreenAreaHa = 2.4,
+  rainfallIntensityMm,
   onRainfallChange,
   className = ''
 }) => {
-  const [rainfallMm, setRainfallMm] = useState<number>(65);
+  const [internalRainfallMm, setInternalRainfallMm] = useState<number>(65);
+  const rainfallMm = rainfallIntensityMm !== undefined ? rainfallIntensityMm : internalRainfallMm;
 
   const simulation = simulateCloudburstRunoff({
     siteAreaHa,
@@ -30,7 +33,7 @@ export const CloudburstSlider: React.FC<CloudburstSliderProps> = ({
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
-    setRainfallMm(val);
+    setInternalRainfallMm(val);
     if (onRainfallChange) onRainfallChange(val);
   };
 

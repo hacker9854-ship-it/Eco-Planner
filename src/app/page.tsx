@@ -148,6 +148,7 @@ export default function UrbanCompilerPage() {
   const [isNeuroSymbolicOpen, setIsNeuroSymbolicOpen] = useState(false);
   const [isSpeciesModalOpen, setIsSpeciesModalOpen] = useState(false);
   const [isWeb3Open, setIsWeb3Open] = useState(false);
+  const [rainfallIntensityMm, setRainfallIntensityMm] = useState<number>(65);
   const [inspectedMetric, setInspectedMetric] = useState<MetricWithProvenance<any> | null>(null);
 
   // Active interventions for current scenario
@@ -753,11 +754,11 @@ export default function UrbanCompilerPage() {
             )}
           </div>
 
-          {/* Under the results map render <ImpactCards impact={computeImpact(siteFeature, interventionFeatures)} /> */}
+          {/* Under the results map render <ImpactCards impact={computeImpact(siteFeature, interventionFeatures, { designStormMm: rainfallIntensityMm })} /> */}
           {currentStep === 4 && !isCompilingScreenActive && (
             <div className="shrink-0 bg-white border-t border-slate-200/90 px-4 py-3 z-20 pointer-events-auto overflow-x-auto shadow-sm">
               <div className="max-w-6xl mx-auto">
-                <ImpactCards impact={computeImpact(siteFeature, interventionFeatures)} />
+                <ImpactCards impact={computeImpact(siteFeature, interventionFeatures, { designStormMm: rainfallIntensityMm })} />
               </div>
             </div>
           )}
@@ -818,6 +819,8 @@ export default function UrbanCompilerPage() {
                 onOpenDPRModal={() => setIsDPROpen(true)}
                 onOpenNativeSpeciesModal={() => setIsSpeciesModalOpen(true)}
                 onOpenWeb3Modal={() => setIsWeb3Open(true)}
+                activeRainfallMm={rainfallIntensityMm}
+                onRainfallIntensityChange={setRainfallIntensityMm}
                 className="w-full"
               />
             </div>
@@ -893,6 +896,8 @@ export default function UrbanCompilerPage() {
                   setIsMobileResultsOpen(false);
                   setIsWeb3Open(true);
                 }}
+                activeRainfallMm={rainfallIntensityMm}
+                onRainfallIntensityChange={setRainfallIntensityMm}
                 className="w-full border-l-0"
               />
             </div>

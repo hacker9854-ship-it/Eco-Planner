@@ -33,7 +33,27 @@ export function ImpactCards({ impact }: { impact: Impact }) {
 
   return (
     <section aria-label="Impact summary">
-      <h3 className="mb-2 text-sm font-semibold text-slate-800" title={tip}>Impact Summary (Modeled Estimates)</h3>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-sm font-semibold text-slate-800" title={tip}>
+          Impact Summary (Modeled Estimates)
+        </h3>
+        {a.designStormMm >= 180 ? (
+          <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-rose-100 text-rose-800 border border-rose-300 animate-pulse flex items-center gap-1">
+            <span>⛈️ Cloudburst Stress</span>
+            <span>({a.designStormMm}mm)</span>
+          </span>
+        ) : a.designStormMm >= 100 ? (
+          <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
+            <span>🌧️ Heavy Storm</span>
+            <span>({a.designStormMm}mm)</span>
+          </span>
+        ) : (
+          <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+            <span>🌦️ Standard Storm</span>
+            <span>({a.designStormMm}mm)</span>
+          </span>
+        )}
+      </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
         <Card tone="bg-emerald-50 text-emerald-600" value={`+${fmtHa(impact.greenCoverHa)}`} label="Green cover"
           icon={<Ico><path d="M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8" /></Ico>} />

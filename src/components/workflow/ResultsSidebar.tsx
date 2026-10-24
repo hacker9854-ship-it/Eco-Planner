@@ -36,6 +36,8 @@ interface ResultsSidebarProps {
   onOpenDPRModal?: () => void;
   onOpenNativeSpeciesModal?: () => void;
   onOpenWeb3Modal?: () => void;
+  activeRainfallMm?: number;
+  onRainfallIntensityChange?: (mm: number) => void;
   className?: string;
 }
 
@@ -53,6 +55,8 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
   onOpenDPRModal,
   onOpenNativeSpeciesModal,
   onOpenWeb3Modal,
+  activeRainfallMm = 65,
+  onRainfallIntensityChange,
   className = ''
 }) => {
   // Scenarios list
@@ -100,7 +104,10 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
     }
   }, [siteFeature]);
   const interventionFeatures = useMemo(() => toFeatures(interventions), [interventions]);
-  const impact = useMemo(() => computeImpact(siteFeature, interventionFeatures), [siteFeature, interventionFeatures]);
+  const impact = useMemo(
+    () => computeImpact(siteFeature, interventionFeatures, { designStormMm: activeRainfallMm }),
+    [siteFeature, interventionFeatures, activeRainfallMm]
+  );
 
   return (
     <aside className={`w-[340px] xl:w-[380px] bg-white border-l border-slate-200/90 flex flex-col h-full z-20 shrink-0 select-none overflow-hidden ${className}`}>
@@ -321,6 +328,8 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
           siteAreaHa={siteAreaHa}
           baselineImperviousPercent={78.5}
           intervenedGreenAreaHa={impact.greenCoverHa}
+          rainfallIntensityMm={activeRainfallMm}
+          onRainfallChange={onRainfallIntensityChange}
         />
 
         {/* ── Municipal DPR & Verification CTA ── */}
