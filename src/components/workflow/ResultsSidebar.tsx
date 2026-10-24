@@ -35,6 +35,7 @@ interface ResultsSidebarProps {
   onToggleShowInterventions?: () => void;
   onOpenDPRModal?: () => void;
   onOpenNativeSpeciesModal?: () => void;
+  onOpenWeb3Modal?: () => void;
   className?: string;
 }
 
@@ -51,6 +52,7 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
   onToggleShowInterventions,
   onOpenDPRModal,
   onOpenNativeSpeciesModal,
+  onOpenWeb3Modal,
   className = ''
 }) => {
   // Scenarios list
@@ -342,6 +344,17 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
             >
               <Sprout className="w-4 h-4 text-emerald-600" />
               <span>Western Ghats Native Botanical Mix</span>
+            </button>
+          )}
+
+          {onOpenWeb3Modal && (
+            <button
+              type="button"
+              onClick={onOpenWeb3Modal}
+              className="w-full py-2 px-3 bg-purple-50 hover:bg-purple-100 border border-purple-200 hover:border-purple-300 text-purple-900 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
+            >
+              <ShieldCheck className="w-4 h-4 text-purple-600" />
+              <span>Polygon Amoy dMRV & Carbon Mint</span>
             </button>
           )}
 

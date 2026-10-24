@@ -18,7 +18,8 @@ import {
   FolderArchive,
   Brain,
   FileText,
-  Zap
+  Zap,
+  ShieldCheck
 } from 'lucide-react';
 import { AuthUser } from '@/components/auth/AuthModal';
 
@@ -41,6 +42,7 @@ interface HeaderProps {
   onOpenProjectLibrary?: () => void;
   onOpenNeuroSymbolicModal?: () => void;
   onOpenDPRModal?: () => void;
+  onOpenWeb3Modal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -59,7 +61,8 @@ export const Header: React.FC<HeaderProps> = ({
   onSaveProject,
   onOpenProjectLibrary,
   onOpenNeuroSymbolicModal,
-  onOpenDPRModal
+  onOpenDPRModal,
+  onOpenWeb3Modal
 }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -167,6 +170,20 @@ export const Header: React.FC<HeaderProps> = ({
             <FileText className="w-3.5 h-3.5 text-emerald-300" />
             <span className="hidden sm:inline">Municipal DPR (PDF)</span>
             <span className="sm:hidden">DPR</span>
+          </button>
+        )}
+
+        {/* Web3 Polygon Amoy dMRV Proofs & Carbon Mint Button */}
+        {onOpenWeb3Modal && (
+          <button
+            type="button"
+            onClick={onOpenWeb3Modal}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-900 text-xs font-bold transition shadow-xs"
+            title="Polygon Amoy dMRV & Carbon Credit Verification"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />
+            <span className="hidden lg:inline">Web3 dMRV</span>
+            <span className="lg:hidden">Web3</span>
           </button>
         )}
 

@@ -18,6 +18,7 @@ import { ProjectLibraryModal } from '@/components/project/ProjectLibraryModal';
 import { DetailedProjectReportModal } from '@/components/dpr/DetailedProjectReportModal';
 import { NeuroSymbolicModal } from '@/components/architecture/NeuroSymbolicModal';
 import { NativeSpeciesModal } from '@/components/biodiversity/NativeSpeciesModal';
+import { Web3VerificationModal } from '@/components/web3/Web3VerificationModal';
 import { toFeatures, normalizeSite, computeImpact } from '@/lib/geo/impact';
 import { ImpactCards } from '@/components/results/ImpactCards';
 
@@ -146,6 +147,7 @@ export default function UrbanCompilerPage() {
   const [isDPROpen, setIsDPROpen] = useState(false);
   const [isNeuroSymbolicOpen, setIsNeuroSymbolicOpen] = useState(false);
   const [isSpeciesModalOpen, setIsSpeciesModalOpen] = useState(false);
+  const [isWeb3Open, setIsWeb3Open] = useState(false);
   const [inspectedMetric, setInspectedMetric] = useState<MetricWithProvenance<any> | null>(null);
 
   // Active interventions for current scenario
@@ -521,6 +523,7 @@ export default function UrbanCompilerPage() {
         onOpenProjectLibrary={() => setIsProjectLibraryOpen(true)}
         onOpenNeuroSymbolicModal={() => setIsNeuroSymbolicOpen(true)}
         onOpenDPRModal={() => setIsDPROpen(true)}
+        onOpenWeb3Modal={() => setIsWeb3Open(true)}
       />
 
       {/* ── Mobile Compact Stepper Bar ── */}
@@ -814,6 +817,7 @@ export default function UrbanCompilerPage() {
                 onToggleShowInterventions={() => setShowInterventions((s) => !s)}
                 onOpenDPRModal={() => setIsDPROpen(true)}
                 onOpenNativeSpeciesModal={() => setIsSpeciesModalOpen(true)}
+                onOpenWeb3Modal={() => setIsWeb3Open(true)}
                 className="w-full"
               />
             </div>
@@ -885,6 +889,10 @@ export default function UrbanCompilerPage() {
                   setIsMobileResultsOpen(false);
                   setIsSpeciesModalOpen(true);
                 }}
+                onOpenWeb3Modal={() => {
+                  setIsMobileResultsOpen(false);
+                  setIsWeb3Open(true);
+                }}
                 className="w-full border-l-0"
               />
             </div>
@@ -946,6 +954,15 @@ export default function UrbanCompilerPage() {
       <NativeSpeciesModal
         isOpen={isSpeciesModalOpen}
         onClose={() => setIsSpeciesModalOpen(false)}
+      />
+
+      <Web3VerificationModal
+        isOpen={isWeb3Open}
+        onClose={() => setIsWeb3Open(false)}
+        optimizationResult={optimizationResult}
+        activeScenarioType={activeScenarioType}
+        sitePolygon={siteFeature as any}
+        locationName={selectedLocation?.name || 'Metropolitan Resilience Catchment'}
       />
     </div>
   );
