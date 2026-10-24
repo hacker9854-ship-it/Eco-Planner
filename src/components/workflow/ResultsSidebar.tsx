@@ -11,13 +11,16 @@ import {
   Eye,
   EyeOff,
   FileText,
-  ShieldCheck
+  ShieldCheck,
+  Sprout
 } from 'lucide-react';
+import { CloudburstSlider } from '@/components/simulation/CloudburstSlider';
 import { OptimizationResult, ScenarioType } from '@/types/scenarios';
 import { CandidateInterventionFeature } from '@/types/interventions';
 import { SitePolygon } from '@/types/geo';
 import { computeImpact, fmtHa, fmtINR, normalizeSite, toFeatures, resolveType } from '@/lib/geo/impact';
 import { TYPE_COLOR } from '@/components/map/GeoOverlay';
+import * as turf from '@turf/turf';
 
 interface ResultsSidebarProps {
   optimizationResult: OptimizationResult | null;
@@ -31,6 +34,7 @@ interface ResultsSidebarProps {
   showInterventions?: boolean;
   onToggleShowInterventions?: () => void;
   onOpenDPRModal?: () => void;
+  onOpenNativeSpeciesModal?: () => void;
   className?: string;
 }
 
@@ -46,6 +50,7 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
   showInterventions = true,
   onToggleShowInterventions,
   onOpenDPRModal,
+  onOpenNativeSpeciesModal,
   className = ''
 }) => {
   // Scenarios list
@@ -85,6 +90,13 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
 
   // Compute real geometry-based impact
   const siteFeature = useMemo(() => normalizeSite(sitePolygon), [sitePolygon]);
+  const siteAreaHa = useMemo(() => {
+    try {
+      return siteFeature ? turf.area(siteFeature as any) / 10000 : 15.0;
+    } catch {
+      return 15.0;
+    }
+  }, [siteFeature]);
   const interventionFeatures = useMemo(() => toFeatures(interventions), [interventions]);
   const impact = useMemo(() => computeImpact(siteFeature, interventionFeatures), [siteFeature, interventionFeatures]);
 
@@ -302,6 +314,13 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
           </div>
         )}
 
+        {/* ── Interactive Cloudburst Stress Simulator ── */}
+        <CloudburstSlider
+          siteAreaHa={siteAreaHa}
+          baselineImperviousPercent={78.5}
+          intervenedGreenAreaHa={impact.greenCoverHa}
+        />
+
         {/* ── Municipal DPR & Verification CTA ── */}
         <div className="space-y-2">
           {onOpenDPRModal && (
@@ -312,6 +331,17 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
             >
               <FileText className="w-4 h-4 text-emerald-300" />
               <span>Export Municipal DPR (PDF)</span>
+            </button>
+          )}
+
+          {onOpenNativeSpeciesModal && (
+            <button
+              type="button"
+              onClick={onOpenNativeSpeciesModal}
+              className="w-full py-2 px-3 bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-emerald-900 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
+            >
+              <Sprout className="w-4 h-4 text-emerald-600" />
+              <span>Western Ghats Native Botanical Mix</span>
             </button>
           )}
 

@@ -17,6 +17,7 @@ import { DataProvenanceModal } from '@/components/analysis/DataProvenanceModal';
 import { ProjectLibraryModal } from '@/components/project/ProjectLibraryModal';
 import { DetailedProjectReportModal } from '@/components/dpr/DetailedProjectReportModal';
 import { NeuroSymbolicModal } from '@/components/architecture/NeuroSymbolicModal';
+import { NativeSpeciesModal } from '@/components/biodiversity/NativeSpeciesModal';
 import { toFeatures, normalizeSite, computeImpact } from '@/lib/geo/impact';
 import { ImpactCards } from '@/components/results/ImpactCards';
 
@@ -144,6 +145,7 @@ export default function UrbanCompilerPage() {
   const [isMobileResultsOpen, setIsMobileResultsOpen] = useState(false);
   const [isDPROpen, setIsDPROpen] = useState(false);
   const [isNeuroSymbolicOpen, setIsNeuroSymbolicOpen] = useState(false);
+  const [isSpeciesModalOpen, setIsSpeciesModalOpen] = useState(false);
   const [inspectedMetric, setInspectedMetric] = useState<MetricWithProvenance<any> | null>(null);
 
   // Active interventions for current scenario
@@ -811,6 +813,7 @@ export default function UrbanCompilerPage() {
                 showInterventions={showInterventions}
                 onToggleShowInterventions={() => setShowInterventions((s) => !s)}
                 onOpenDPRModal={() => setIsDPROpen(true)}
+                onOpenNativeSpeciesModal={() => setIsSpeciesModalOpen(true)}
                 className="w-full"
               />
             </div>
@@ -878,6 +881,10 @@ export default function UrbanCompilerPage() {
                   setIsMobileResultsOpen(false);
                   setIsDPROpen(true);
                 }}
+                onOpenNativeSpeciesModal={() => {
+                  setIsMobileResultsOpen(false);
+                  setIsSpeciesModalOpen(true);
+                }}
                 className="w-full border-l-0"
               />
             </div>
@@ -934,6 +941,11 @@ export default function UrbanCompilerPage() {
       <NeuroSymbolicModal
         isOpen={isNeuroSymbolicOpen}
         onClose={() => setIsNeuroSymbolicOpen(false)}
+      />
+
+      <NativeSpeciesModal
+        isOpen={isSpeciesModalOpen}
+        onClose={() => setIsSpeciesModalOpen(false)}
       />
     </div>
   );
