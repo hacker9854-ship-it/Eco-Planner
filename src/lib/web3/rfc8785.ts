@@ -5,15 +5,19 @@
  */
 
 export function canonicalizeJSON(obj: any): string {
+  if (obj === undefined) {
+    return 'null';
+  }
   if (obj === null || typeof obj !== 'object') {
     return JSON.stringify(obj);
   }
 
   if (Array.isArray(obj)) {
-    return '[' + obj.map(canonicalizeJSON).join(',') + ']';
+    return '[' + obj.map((item) => (item === undefined ? 'null' : canonicalizeJSON(item))).join(',') + ']';
   }
 
-  const sortedKeys = Object.keys(obj).sort();
+  // Filter out undefined values to comply with canonical JSON RFC-8785
+  const sortedKeys = Object.keys(obj).filter((k) => obj[k] !== undefined).sort();
   const parts = sortedKeys.map(
     (key) => JSON.stringify(key) + ':' + canonicalizeJSON(obj[key])
   );

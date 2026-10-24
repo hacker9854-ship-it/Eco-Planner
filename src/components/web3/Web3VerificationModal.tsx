@@ -43,6 +43,7 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
   sitePolygon,
   locationName = 'Metropolitan Catchment'
 }) => {
+  const [activeTab, setActiveTab] = useState<'settlement' | 'canonical' | 'calldata'>('settlement');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [isMinting, setIsMinting] = useState(false);
   const [mintSuccess, setMintSuccess] = useState(false);
@@ -104,7 +105,12 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
         surfaceCoolingC: -1.8,
         co2SequestrationKgPerYr: carbonYield.totalAnnualCarbonKg,
         annualCarbonTons: carbonYield.totalAnnualCarbonTons,
-        interventions: interventions.map(i => ({ id: i.id, name: i.name, type: i.properties?.type, cost: i.properties?.estimatedCostInr }))
+        interventions: interventions.map(i => ({
+          id: String(i.id || ''),
+          name: String(i.name || ''),
+          type: String(i.properties?.type || 'intervention'),
+          cost: Number(i.properties?.estimatedCostInr || 0)
+        }))
       };
 
       const bundle = await generatePlanEvidenceBundle(planData);
@@ -167,218 +173,365 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
               </p>
             </div>
           </div>
+          <div className="flex items-center gap-2.5">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl font-mono text-[11px] text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>0x71C8...Bb90</span>
+              <span className="text-[10px] text-purple-400 font-bold bg-purple-950/80 px-1.5 py-0.5 rounded border border-purple-800/80">
+                14.82 MATIC
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-950/70 border-b border-slate-800/80 text-xs font-semibold overflow-x-auto">
           <button
             type="button"
-            onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
+            onClick={() => setActiveTab('settlement')}
+            className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
+              activeTab === 'settlement'
+                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
           >
-            <X className="w-5 h-5" />
+            dMRV Settlement & Offsets
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('canonical')}
+            className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
+              activeTab === 'canonical'
+                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            RFC-8785 Canonical Payload
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('calldata')}
+            className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
+              activeTab === 'calldata'
+                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            EVM ABI & Calldata
           </button>
         </div>
 
         {/* Body */}
         <div className="p-6 overflow-y-auto space-y-6 text-xs text-slate-300">
-          {/* Smart Contract Registry Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center justify-between text-[11px] font-mono text-purple-400 mb-1">
-                <span>EcoEvidenceRegistry.sol</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              </div>
-              <div className="font-mono text-[10px] text-slate-400 truncate">
-                0x35688536f87C414c77c6a9c1A3c847d066922F26
-              </div>
-              <div className="text-[10px] text-slate-400 mt-2">
-                Anchors RFC-8785 hash & geographic centroid nullifier.
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400 mb-1">
-                <span>UrbanCarbonCredit.sol</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              </div>
-              <div className="font-mono text-[10px] text-slate-400 truncate">
-                0x8842Af529D7E842187b5a5B49d863f6C5110E9e1
-              </div>
-              <div className="text-[10px] text-slate-400 mt-2">
-                ERC-20 token (UCC). 1 UCC = 1 Ton CO₂e sequestered.
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center justify-between text-[11px] font-mono text-blue-400 mb-1">
-                <span>ParametricGreenBond.sol</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              </div>
-              <div className="font-mono text-[10px] text-slate-400 truncate">
-                0x497eA73Ff52b61D1537e2D48c7A5Ac387D344B60
-              </div>
-              <div className="text-[10px] text-slate-400 mt-2">
-                Tranche escrow released on empirical satellite proof.
-              </div>
-            </div>
-          </div>
-
-          {/* Cryptographic Hashes & Anti-Double-Claiming */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 font-mono">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                Cryptographic Evidence Digest & Nullifier
-              </span>
-              <span className="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded-md border border-emerald-800 font-sans">
-                ✓ RFC-8785 Deterministic
-              </span>
-            </div>
-
-            <div className="space-y-2 text-[11px]">
-              <div>
-                <div className="text-slate-500 text-[10px]">KECCAK-256 PLAN EVIDENCE DIGEST:</div>
-                <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-slate-300">
-                  <span className="truncate mr-2">{evidenceData?.keccakDigest || 'Computing digest...'}</span>
-                  <button
-                    type="button"
-                    onClick={() => evidenceData && copyToClipboard(evidenceData.keccakDigest, 'keccak')}
-                    className="text-slate-400 hover:text-white transition shrink-0"
-                    title="Copy hash"
-                  >
-                    {copiedKey === 'keccak' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-slate-500 text-[10px]">GEOGRAPHIC CENTROID ANTI-DOUBLE-CLAIMING NULLIFIER:</div>
-                <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-purple-300">
-                  <span className="truncate mr-2">{evidenceData?.centroidNullifier || 'Computing nullifier...'}</span>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded border border-purple-800">
-                      Unique Cadastre
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => evidenceData && copyToClipboard(evidenceData.centroidNullifier, 'nullifier')}
-                      className="text-slate-400 hover:text-white transition"
-                    >
-                      {copiedKey === 'nullifier' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
+          {activeTab === 'settlement' && (
+            <>
+              {/* Smart Contract Registry Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700 hover:border-purple-500/50 transition">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-purple-400 mb-1">
+                    <span>EcoEvidenceRegistry.sol</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   </div>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-slate-500 text-[10px]">PINATA IPFS CIDv1 CANONICAL STORAGE BUNDLE:</div>
-                <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-sky-300">
-                  <span className="truncate mr-2">{evidenceData?.ipfsCid || 'Computing IPFS CID...'}</span>
                   <a
-                    href={evidenceData?.gatewayUrl || '#'}
+                    href="https://amoy.polygonscan.com/address/0x35688536f87C414c77c6a9c1A3c847d066922F26"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sky-400 hover:text-sky-300 flex items-center gap-1 text-[10px] shrink-0"
+                    className="font-mono text-[10px] text-slate-400 hover:text-purple-300 truncate flex items-center gap-1 group"
                   >
-                    <span>IPFS Gateway</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <span className="truncate">0x35688536f87C414c77c6a9c1A3c847d066922F26</span>
+                    <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-70 group-hover:opacity-100" />
                   </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Urban Carbon Credit Tokenization Panel */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-teal-950/40 border border-emerald-800/60 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                <Coins className="w-4 h-4" />
-                <span>Urban Carbon Credits (UCC) Minting</span>
-              </div>
-              <p className="text-[11px] text-slate-300 mt-1">
-                Based on IPCC Tier-1 Allometric Growth ({evidenceData?.carbonYield.totalAnnualCarbonKg.toLocaleString() || '72,250'} kg CO₂e/yr):
-              </p>
-              <div className="text-lg font-black text-white font-mono mt-1">
-                {evidenceData?.carbonYield.urbanCarbonCreditTokens || 72.26} UCC Tokens{' '}
-                <span className="text-xs font-normal text-emerald-300">
-                  (≈ ₹{(evidenceData?.carbonYield.estimatedCarbonCreditValueInr || 108390).toLocaleString()} Annual Carbon Finance)
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-end gap-2 w-full md:w-auto">
-              {mintSuccess ? (
-                <div className="text-right">
-                  <span className="px-3 py-1 rounded-xl bg-emerald-900/80 text-emerald-300 border border-emerald-700 font-mono text-xs flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Minted Successfully!</span>
-                  </span>
-                  <div className="text-[10px] font-mono text-slate-400 mt-1 truncate max-w-[200px]">
-                    Tx: {mintTxHash}
+                  <div className="text-[10px] text-slate-400 mt-2">
+                    Anchors RFC-8785 hash & geographic centroid nullifier.
                   </div>
                 </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleMintUCC}
-                  disabled={isMinting}
-                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
-                >
-                  <Coins className="w-4 h-4" />
-                  <span>{isMinting ? 'Broadcasting to Polygon Amoy...' : 'Mint Verified Carbon Credits'}</span>
-                </button>
-              )}
-            </div>
-          </div>
 
-          {/* Parametric Green Bond Tranches */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-            <div className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono flex items-center justify-between">
-              <span>Parametric Green Bond Escrow Tranches (₹50 Lakh Escrow)</span>
-              <span className="text-blue-400 text-[10px]">Smart Contract Escrow</span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {/* Tranche 1 */}
-              <div className="p-3 rounded-xl bg-slate-900 border border-emerald-800/80">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-bold text-emerald-400 text-xs">Tranche 1 (30%)</span>
-                  <span className="text-[9px] font-mono bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800">
-                    RELEASED
-                  </span>
+                <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700 hover:border-emerald-500/50 transition">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400 mb-1">
+                    <span>UrbanCarbonCredit.sol</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  </div>
+                  <a
+                    href="https://amoy.polygonscan.com/address/0x8842Af529D7E842187b5a5B49d863f6C5110E9e1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[10px] text-slate-400 hover:text-emerald-300 truncate flex items-center gap-1 group"
+                  >
+                    <span className="truncate">0x8842Af529D7E842187b5a5B49d863f6C5110E9e1</span>
+                    <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-70 group-hover:opacity-100" />
+                  </a>
+                  <div className="text-[10px] text-slate-400 mt-2">
+                    ERC-20 token (UCC). 1 UCC = 1 Ton CO₂e sequestered.
+                  </div>
                 </div>
-                <div className="text-base font-black text-white font-mono">₹15,00,000</div>
-                <div className="text-[10px] text-slate-400 mt-1">
-                  Trigger: Canonical RFC-8785 Plan anchored to EcoEvidenceRegistry.
+
+                <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700 hover:border-blue-500/50 transition">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-blue-400 mb-1">
+                    <span>ParametricGreenBond.sol</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  </div>
+                  <a
+                    href="https://amoy.polygonscan.com/address/0x497eA73Ff52b61D1537e2D48c7A5Ac387D344B60"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[10px] text-slate-400 hover:text-blue-300 truncate flex items-center gap-1 group"
+                  >
+                    <span className="truncate">0x497eA73Ff52b61D1537e2D48c7A5Ac387D344B60</span>
+                    <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-70 group-hover:opacity-100" />
+                  </a>
+                  <div className="text-[10px] text-slate-400 mt-2">
+                    Tranche escrow released on empirical satellite proof.
+                  </div>
                 </div>
               </div>
 
-              {/* Tranche 2 */}
-              <div className="p-3 rounded-xl bg-slate-900 border border-amber-800/60">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-bold text-amber-400 text-xs">Tranche 2 (40%)</span>
-                  <span className="text-[9px] font-mono bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800">
-                    PENDING
+              {/* Cryptographic Hashes & Anti-Double-Claiming */}
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 font-mono">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    Cryptographic Evidence Digest & Nullifier
+                  </span>
+                  <span className="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded-md border border-emerald-800 font-sans">
+                    ✓ RFC-8785 Deterministic
                   </span>
                 </div>
-                <div className="text-base font-black text-white font-mono">₹20,00,000</div>
-                <div className="text-[10px] text-slate-400 mt-1">
-                  Trigger: Soil preparation & sapling planting verified by field attestation.
+
+                <div className="space-y-2 text-[11px]">
+                  <div>
+                    <div className="text-slate-500 text-[10px]">KECCAK-256 PLAN EVIDENCE DIGEST:</div>
+                    <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-slate-300">
+                      <span className="truncate mr-2">{evidenceData?.keccakDigest || 'Computing digest...'}</span>
+                      <button
+                        type="button"
+                        onClick={() => evidenceData && copyToClipboard(evidenceData.keccakDigest, 'keccak')}
+                        className="text-slate-400 hover:text-white transition shrink-0"
+                        title="Copy hash"
+                      >
+                        {copiedKey === 'keccak' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-slate-500 text-[10px]">GEOGRAPHIC CENTROID ANTI-DOUBLE-CLAIMING NULLIFIER:</div>
+                    <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-purple-300">
+                      <span className="truncate mr-2">{evidenceData?.centroidNullifier || 'Computing nullifier...'}</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded border border-purple-800">
+                          Unique Cadastre
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => evidenceData && copyToClipboard(evidenceData.centroidNullifier, 'nullifier')}
+                          className="text-slate-400 hover:text-white transition"
+                        >
+                          {copiedKey === 'nullifier' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-slate-500 text-[10px]">PINATA IPFS CIDv1 CANONICAL STORAGE BUNDLE:</div>
+                    <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-sky-300">
+                      <span className="truncate mr-2">{evidenceData?.ipfsCid || 'Computing IPFS CID...'}</span>
+                      <a
+                        href={evidenceData?.gatewayUrl || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sky-400 hover:text-sky-300 flex items-center gap-1 text-[10px] shrink-0"
+                      >
+                        <span>IPFS Gateway</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Tranche 3 */}
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-bold text-slate-400 text-xs">Tranche 3 (30%)</span>
-                  <span className="text-[9px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">
-                    LOCKED
-                  </span>
+              {/* Urban Carbon Credit Tokenization Panel */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-teal-950/40 border border-emerald-800/60 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                    <Coins className="w-4 h-4" />
+                    <span>Urban Carbon Credits (UCC) Minting</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 mt-1">
+                    Based on IPCC Tier-1 Allometric Growth ({evidenceData?.carbonYield.totalAnnualCarbonKg.toLocaleString() || '72,250'} kg CO₂e/yr):
+                  </p>
+                  <div className="text-lg font-black text-white font-mono mt-1">
+                    {evidenceData?.carbonYield.urbanCarbonCreditTokens || 72.26} UCC Tokens{' '}
+                    <span className="text-xs font-normal text-emerald-300">
+                      (≈ ₹{(evidenceData?.carbonYield.estimatedCarbonCreditValueInr || 108390).toLocaleString()} Annual Carbon Finance)
+                    </span>
+                  </div>
                 </div>
-                <div className="text-base font-black text-white font-mono">₹15,00,000</div>
-                <div className="text-[10px] text-slate-400 mt-1">
-                  Trigger: 12-Month Copernicus Sentinel-2 NDVI canopy growth proof.
+
+                <div className="flex flex-col items-end gap-2 w-full md:w-auto">
+                  {mintSuccess ? (
+                    <div className="text-right">
+                      <span className="px-3 py-1 rounded-xl bg-emerald-900/80 text-emerald-300 border border-emerald-700 font-mono text-xs flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                        <span>Minted Successfully!</span>
+                      </span>
+                      <a
+                        href={`https://amoy.polygonscan.com/tx/${mintTxHash}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-mono text-purple-400 hover:underline flex items-center gap-1 justify-end mt-1"
+                      >
+                        <span className="truncate max-w-[150px]">Tx: {mintTxHash}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleMintUCC}
+                      disabled={isMinting}
+                      className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
+                    >
+                      <Coins className="w-4 h-4" />
+                      <span>{isMinting ? 'Broadcasting to Polygon Amoy...' : 'Mint Verified Carbon Credits'}</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Parametric Green Bond Tranches */}
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono flex items-center justify-between">
+                  <span>Parametric Green Bond Escrow Tranches (₹50 Lakh Escrow)</span>
+                  <span className="text-blue-400 text-[10px]">Smart Contract Escrow</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {/* Tranche 1 */}
+                  <div className="p-3 rounded-xl bg-slate-900 border border-emerald-800/80">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-emerald-400 text-xs">Tranche 1 (30%)</span>
+                      <span className="text-[9px] font-mono bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800">
+                        RELEASED
+                      </span>
+                    </div>
+                    <div className="text-base font-black text-white font-mono">₹15,00,000</div>
+                    <div className="text-[10px] text-slate-400 mt-1">
+                      Trigger: Canonical RFC-8785 Plan anchored to EcoEvidenceRegistry.
+                    </div>
+                  </div>
+
+                  {/* Tranche 2 */}
+                  <div className="p-3 rounded-xl bg-slate-900 border border-amber-800/60">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-amber-400 text-xs">Tranche 2 (40%)</span>
+                      <span className="text-[9px] font-mono bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800">
+                        PENDING
+                      </span>
+                    </div>
+                    <div className="text-base font-black text-white font-mono">₹20,00,000</div>
+                    <div className="text-[10px] text-slate-400 mt-1">
+                      Trigger: Soil preparation & sapling planting verified by field attestation.
+                    </div>
+                  </div>
+
+                  {/* Tranche 3 */}
+                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-slate-400 text-xs">Tranche 3 (30%)</span>
+                      <span className="text-[9px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">
+                        LOCKED
+                      </span>
+                    </div>
+                    <div className="text-base font-black text-white font-mono">₹15,00,000</div>
+                    <div className="text-[10px] text-slate-400 mt-1">
+                      Trigger: 12-Month Copernicus Sentinel-2 NDVI canopy growth proof.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'canonical' && (
+            <div className="space-y-4">
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileCode className="w-4 h-4 text-purple-400" />
+                    <span className="font-bold text-slate-200">RFC-8785 Canonical JSON Representation</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => evidenceData && copyToClipboard(evidenceData.canonicalString, 'canonPayload')}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-mono transition"
+                  >
+                    {copiedKey === 'canonPayload' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedKey === 'canonPayload' ? 'Copied' : 'Copy RFC-8785 JSON'}</span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  Strict deterministic serialization: keys sorted in lexicographical Unicode order, zero extraneous whitespace, normalized IEEE-754 precision. Produces an invariant Keccak-256 digest across EVM, Python, and JavaScript.
+                </p>
+              </div>
+
+              <pre className="p-4 bg-slate-950 font-mono text-[11px] text-emerald-300 rounded-2xl border border-slate-800 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-[380px]">
+                {evidenceData?.canonicalString
+                  ? (() => {
+                      try {
+                        return JSON.stringify(JSON.parse(evidenceData.canonicalString), null, 2);
+                      } catch {
+                        return evidenceData.canonicalString;
+                      }
+                    })()
+                  : '// Generating RFC-8785 canonical structure...'}
+              </pre>
+            </div>
+          )}
+
+          {activeTab === 'calldata' && (
+            <div className="space-y-4 font-mono">
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 font-sans">
+                <div className="flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-blue-400" />
+                  <span className="font-bold text-slate-200">Solidity Smart Contract Function Interfaces</span>
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  Verified EVM method signatures called during on-chain settlement on Polygon Amoy (Chain ID: 80002).
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
+                  <span className="text-[10px] text-purple-400 font-bold block">1. ECOEVIDENCEREGISTRY.SOL :: REGISTERPLAN</span>
+                  <div className="text-[11px] text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800 overflow-x-auto">
+                    registerPlan(bytes32 {evidenceData?.keccakDigest.substring(0, 18)}..., string &quot;{evidenceData?.ipfsCid.substring(0, 20)}...&quot;, uint256 siteArea, int32 latE6, int32 lngE6)
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
+                  <span className="text-[10px] text-emerald-400 font-bold block">2. URBANCARBONCREDIT.SOL :: MINTVERIFIEDOFFSET</span>
+                  <div className="text-[11px] text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800 overflow-x-auto">
+                    mintVerifiedOffset(address 0x71C83a48e7eC020131B66f5C1481e35E2D27Bb90, uint256 {evidenceData?.carbonYield.urbanCarbonCreditTokens || 72} * 10^18, bytes32 planDigest)
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
+                  <span className="text-[10px] text-blue-400 font-bold block">3. PARAMETRICGREENBOND.SOL :: RELEASETRANCHE1</span>
+                  <div className="text-[11px] text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800 overflow-x-auto">
+                    releaseTranche1(bytes32 planDigest, address municipalBeneficiary) ➔ Releases ₹15,00,000 (30%)
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Footer */}
