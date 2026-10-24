@@ -15,6 +15,8 @@ import { BeforeAfterSplit, ComparisonMode } from '@/components/workflow/BeforeAf
 import { LocationSearchModal } from '@/components/search/LocationSearchModal';
 import { DataProvenanceModal } from '@/components/analysis/DataProvenanceModal';
 import { ProjectLibraryModal } from '@/components/project/ProjectLibraryModal';
+import { DetailedProjectReportModal } from '@/components/dpr/DetailedProjectReportModal';
+import { NeuroSymbolicModal } from '@/components/architecture/NeuroSymbolicModal';
 import { toFeatures, normalizeSite, computeImpact } from '@/lib/geo/impact';
 import { ImpactCards } from '@/components/results/ImpactCards';
 
@@ -140,6 +142,8 @@ export default function UrbanCompilerPage() {
   const [isProvenanceOpen, setIsProvenanceOpen] = useState(false);
   const [isProjectLibraryOpen, setIsProjectLibraryOpen] = useState(false);
   const [isMobileResultsOpen, setIsMobileResultsOpen] = useState(false);
+  const [isDPROpen, setIsDPROpen] = useState(false);
+  const [isNeuroSymbolicOpen, setIsNeuroSymbolicOpen] = useState(false);
   const [inspectedMetric, setInspectedMetric] = useState<MetricWithProvenance<any> | null>(null);
 
   // Active interventions for current scenario
@@ -513,6 +517,8 @@ export default function UrbanCompilerPage() {
         onChangeMapStyle={setMapStyle}
         onSaveProject={handleSaveCurrentProject}
         onOpenProjectLibrary={() => setIsProjectLibraryOpen(true)}
+        onOpenNeuroSymbolicModal={() => setIsNeuroSymbolicOpen(true)}
+        onOpenDPRModal={() => setIsDPROpen(true)}
       />
 
       {/* ── Mobile Compact Stepper Bar ── */}
@@ -804,6 +810,7 @@ export default function UrbanCompilerPage() {
                 sitePolygon={siteFeature as any}
                 showInterventions={showInterventions}
                 onToggleShowInterventions={() => setShowInterventions((s) => !s)}
+                onOpenDPRModal={() => setIsDPROpen(true)}
                 className="w-full"
               />
             </div>
@@ -867,6 +874,10 @@ export default function UrbanCompilerPage() {
                 sitePolygon={siteFeature as any}
                 showInterventions={showInterventions}
                 onToggleShowInterventions={() => setShowInterventions((s) => !s)}
+                onOpenDPRModal={() => {
+                  setIsMobileResultsOpen(false);
+                  setIsDPROpen(true);
+                }}
                 className="w-full border-l-0"
               />
             </div>
@@ -909,6 +920,20 @@ export default function UrbanCompilerPage() {
           setIsAuthOpen(false);
           setAppView('WORKSPACE');
         }}
+      />
+
+      <DetailedProjectReportModal
+        isOpen={isDPROpen}
+        onClose={() => setIsDPROpen(false)}
+        optimizationResult={optimizationResult}
+        activeScenarioType={activeScenarioType}
+        sitePolygon={siteFeature as any}
+        locationName={selectedLocation?.name || 'Metropolitan Resilience Catchment'}
+      />
+
+      <NeuroSymbolicModal
+        isOpen={isNeuroSymbolicOpen}
+        onClose={() => setIsNeuroSymbolicOpen(false)}
       />
     </div>
   );

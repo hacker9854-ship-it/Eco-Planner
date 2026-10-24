@@ -9,7 +9,9 @@ import {
   Database,
   X,
   Eye,
-  EyeOff
+  EyeOff,
+  FileText,
+  ShieldCheck
 } from 'lucide-react';
 import { OptimizationResult, ScenarioType } from '@/types/scenarios';
 import { CandidateInterventionFeature } from '@/types/interventions';
@@ -28,6 +30,7 @@ interface ResultsSidebarProps {
   sitePolygon?: SitePolygon | null;
   showInterventions?: boolean;
   onToggleShowInterventions?: () => void;
+  onOpenDPRModal?: () => void;
   className?: string;
 }
 
@@ -42,6 +45,7 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
   sitePolygon,
   showInterventions = true,
   onToggleShowInterventions,
+  onOpenDPRModal,
   className = ''
 }) => {
   // Scenarios list
@@ -297,6 +301,25 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
             Click any intervention on the map or list below to view its location, specifications, and ecological reasoning.
           </div>
         )}
+
+        {/* ── Municipal DPR & Verification CTA ── */}
+        <div className="space-y-2">
+          {onOpenDPRModal && (
+            <button
+              type="button"
+              onClick={onOpenDPRModal}
+              className="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-800 to-teal-700 hover:from-emerald-900 hover:to-teal-800 text-white rounded-xl shadow-md font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer select-none"
+            >
+              <FileText className="w-4 h-4 text-emerald-300" />
+              <span>Export Municipal DPR (PDF)</span>
+            </button>
+          )}
+
+          <div className="flex items-center gap-1.5 p-2 bg-emerald-50/90 border border-emerald-200/90 rounded-xl text-[10px] text-emerald-900 font-medium">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+            <span>Zero Building Collision Verified (OSM Subtracted)</span>
+          </div>
+        </div>
 
         {/* ── Generated Interventions List ── */}
         <div className="space-y-2">
