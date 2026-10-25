@@ -73,6 +73,14 @@ export async function GET(req: NextRequest) {
       placeType: 'city',
       bbox: { minLng: 103.75, minLat: 1.25, maxLng: 103.95, maxLat: 1.45 }
     },
+    'istanbul': {
+      name: 'Istanbul, Marmara, Türkiye',
+      formattedAddress: 'Kadıköy Coastal Stormwater Catchment, Istanbul, Türkiye',
+      center: [29.0250, 40.9850],
+      zoom: 14,
+      placeType: 'city',
+      bbox: { minLng: 29.010, minLat: 40.970, maxLng: 29.040, maxLat: 41.000 }
+    },
     'thane': {
       name: 'Thane, Maharashtra, India',
       formattedAddress: 'Naupada - Wagle Estate Zone, Thane, Maharashtra, India',

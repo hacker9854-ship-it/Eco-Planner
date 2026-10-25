@@ -32,43 +32,43 @@ export const LocationSearchModal: React.FC<LocationSearchModalProps> = ({
 
   const quickHotspots: GeoLocation[] = [
     {
-      name: 'Chicago, Illinois, United States',
-      formattedAddress: 'Chicago Central & Loop District, IL, USA',
-      center: [-87.6298, 41.8781],
-      zoom: 12,
-      placeType: 'city'
-    },
-    {
-      name: 'Metropolitan Urban Catchment',
-      formattedAddress: 'Central Resilience Demonstration Zone',
+      name: 'Thane Naupada Urban Catchment',
+      formattedAddress: 'Naupada - Central Resilience Demonstration Zone, Thane, Maharashtra',
       center: [72.9781, 19.2183],
       zoom: 14,
       placeType: 'city'
     },
     {
-      name: 'Mumbai BKC & Mithi River Basin',
-      formattedAddress: 'Bandra Kurla Complex, Mumbai, Maharashtra, India',
-      center: [72.8687, 19.0657],
-      zoom: 13,
+      name: 'Mumbai Kurla / Mithi River Basin',
+      formattedAddress: 'Mithi River Basin & Kurla West Flood Centroid, Mumbai, Maharashtra',
+      center: [72.8777, 19.0760],
+      zoom: 14,
       placeType: 'city'
     },
     {
-      name: 'Bengaluru Bellandur Catchment',
-      formattedAddress: 'Bellandur / Sarjapur Corridor, Bengaluru, Karnataka, India',
+      name: 'Bengaluru Bellandur Corridor',
+      formattedAddress: 'Bellandur Lake Catchment & Tech Corridor, Bengaluru, Karnataka',
       center: [77.6744, 12.9260],
-      zoom: 13,
+      zoom: 14,
       placeType: 'city'
     },
     {
-      name: 'London Greater Urban Area',
-      formattedAddress: 'London, England, United Kingdom',
-      center: [-0.1276, 51.5074],
+      name: 'Istanbul Kadıköy Coastal Catchment',
+      formattedAddress: 'Kadıköy Coastal Stormwater Catchment, Istanbul, Türkiye',
+      center: [29.0250, 40.9850],
+      zoom: 14,
+      placeType: 'city'
+    },
+    {
+      name: 'Chicago Central & Loop District',
+      formattedAddress: 'Chicago, Cook County, Illinois, United States',
+      center: [-87.6298, 41.8781],
       zoom: 12,
       placeType: 'city'
     },
     {
-      name: 'Singapore Central Region',
-      formattedAddress: 'Singapore Urban Catchment & Marina Bay',
+      name: 'Singapore Marina Bay Catchment',
+      formattedAddress: 'Singapore Central Urban Catchment, Singapore',
       center: [103.8198, 1.3521],
       zoom: 12,
       placeType: 'city'

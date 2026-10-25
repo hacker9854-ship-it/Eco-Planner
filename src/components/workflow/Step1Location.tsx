@@ -21,45 +21,49 @@ interface Step1LocationProps {
   onLoadDemo: () => void;
 }
 
-const SUGGESTED_LOCATIONS: (GeoLocation & { state: string; country: string; thumbnail?: string })[] = [
+const SUGGESTED_LOCATIONS: (GeoLocation & { state: string; country: string; hazardBadge: string; thumbnail?: string })[] = [
   {
-    name: 'Mumbai',
+    name: 'Thane Naupada',
     state: 'Maharashtra',
     country: 'India',
-    formattedAddress: 'Mumbai, Maharashtra, India',
-    center: [72.8777, 19.0760],
-    zoom: 13,
+    formattedAddress: 'Naupada - Central Urban Catchment, Thane, Maharashtra',
+    center: [72.9781, 19.2183],
+    zoom: 14,
     placeType: 'city',
+    hazardBadge: 'Monsoon Flood Risk',
     thumbnail: '/images/city_mumbai.jpg'
   },
   {
-    name: 'Bengaluru',
+    name: 'Bengaluru Bellandur',
     state: 'Karnataka',
     country: 'India',
-    formattedAddress: 'Bengaluru, Karnataka, India',
-    center: [77.5946, 12.9716],
-    zoom: 13,
+    formattedAddress: 'Bellandur Lake Catchment & Tech Corridor, Bengaluru',
+    center: [77.6744, 12.9260],
+    zoom: 14,
     placeType: 'city',
+    hazardBadge: 'Catchment Encroachment',
     thumbnail: '/images/city_bengaluru.jpg'
   },
   {
-    name: 'Delhi',
-    state: 'NCT',
+    name: 'Mumbai Kurla / Mithi',
+    state: 'Maharashtra',
     country: 'India',
-    formattedAddress: 'New Delhi, Delhi, India',
-    center: [77.2090, 28.6139],
-    zoom: 13,
+    formattedAddress: 'Mithi River Basin & Kurla West Flood Centroid, Mumbai',
+    center: [72.8777, 19.0760],
+    zoom: 14,
     placeType: 'city',
+    hazardBadge: 'Flash Flood Centroid',
     thumbnail: '/images/city_delhi.jpg'
   },
   {
-    name: 'Chicago',
-    state: 'Illinois',
-    country: 'USA',
-    formattedAddress: 'Chicago, IL, United States',
-    center: [-87.6298, 41.8781],
-    zoom: 13,
+    name: 'Istanbul Kadıköy',
+    state: 'Marmara',
+    country: 'Türkiye',
+    formattedAddress: 'Kadıköy Coastal Stormwater Catchment, Istanbul, Türkiye',
+    center: [29.0250, 40.9850],
+    zoom: 14,
     placeType: 'city',
+    hazardBadge: 'Coastal Runoff',
     thumbnail: '/images/city_chicago.jpg'
   }
 ];
@@ -223,6 +227,9 @@ export const Step1Location: React.FC<Step1LocationProps> = ({
                           <Globe className="w-6 h-6" />
                         </div>
                       )}
+                      <span className="absolute top-1 right-1 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-slate-900/80 text-emerald-300 backdrop-blur-xs">
+                        {loc.hazardBadge}
+                      </span>
                     </div>
                     <div className="text-xs font-bold text-slate-900 leading-tight truncate">
                       {loc.name}
