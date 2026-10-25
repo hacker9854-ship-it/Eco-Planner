@@ -22,19 +22,26 @@ import {
   TrendingUp,
   FolderArchive,
   Eye,
-  Wind
+  Wind,
+  LogOut,
+  User
 } from 'lucide-react';
+import { AuthUser } from '@/components/auth/AuthModal';
 
 interface LandingPageProps {
   onStartPlanning: () => void;
   onOpenAuth: () => void;
   onExploreDemo: () => void;
+  currentUser?: AuthUser | null;
+  onSignOut?: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onStartPlanning,
   onOpenAuth,
-  onExploreDemo
+  onExploreDemo,
+  currentUser,
+  onSignOut
 }) => {
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [activeStepTab, setActiveStepTab] = useState(0);
@@ -108,15 +115,41 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </a>
         </nav>
 
-        {/* Right Action Buttons matching Image 2 with Sign In */}
+        {/* Right Action Buttons with Logged-in Profile vs Sign In */}
         <div className="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
-          <button
-            type="button"
-            onClick={onOpenAuth}
-            className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-emerald-800 hover:bg-emerald-50 transition border border-slate-300 sm:border-transparent whitespace-nowrap bg-white/80 sm:bg-transparent shadow-xs sm:shadow-none"
-          >
-            Sign In
-          </button>
+          {currentUser && !currentUser.isDemo ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-900 shadow-xs">
+                <div className="w-6 h-6 rounded-full bg-emerald-800 text-white font-bold text-[11px] flex items-center justify-center shrink-0">
+                  {currentUser.name ? currentUser.name[0].toUpperCase() : 'U'}
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="max-w-[120px] truncate leading-tight font-bold">{currentUser.name}</span>
+                  <span className="text-[9px] text-emerald-700 font-mono leading-none">Verified</span>
+                </div>
+              </div>
+              {onSignOut && (
+                <button
+                  type="button"
+                  onClick={onSignOut}
+                  className="px-2 py-1.5 text-xs text-slate-500 hover:text-rose-600 transition flex items-center gap-1 rounded-lg hover:bg-rose-50"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden md:inline">Sign Out</span>
+                </button>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={onOpenAuth}
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-emerald-800 hover:bg-emerald-50 transition border border-slate-300 sm:border-transparent whitespace-nowrap bg-white/80 sm:bg-transparent shadow-xs sm:shadow-none"
+            >
+              Sign In
+            </button>
+          )}
+
           <button
             onClick={onStartPlanning}
             className="w-8 h-8 rounded-full bg-white/90 border border-slate-200 shadow-sm hidden sm:flex items-center justify-center text-slate-700 hover:text-emerald-800 hover:border-emerald-300 transition"
@@ -128,7 +161,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             onClick={onStartPlanning}
             className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#064e3b] hover:bg-[#043d2e] text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-950/20 hover:shadow-lg transition group whitespace-nowrap"
           >
-            <span>Start Planning</span>
+            <span>{currentUser && !currentUser.isDemo ? 'Open Workspace' : 'Start Planning'}</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform hidden sm:inline" />
           </button>
         </div>

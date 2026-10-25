@@ -157,6 +157,22 @@ export default function UrbanCompilerPage() {
     async function restoreSession() {
       try {
         if (!supabase) return;
+
+        // 1. Handle PKCE code in query parameters (?code=...)
+        if (typeof window !== 'undefined') {
+          const params = new URLSearchParams(window.location.search);
+          const code = params.get('code');
+          if (code) {
+            const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+            if (!exchangeError) {
+              const url = new URL(window.location.href);
+              url.searchParams.delete('code');
+              window.history.replaceState({}, document.title, url.toString());
+            }
+          }
+        }
+
+        // 2. Fetch existing session
         const { data } = await supabase.auth.getSession();
         if (data?.session?.user) {
           const u = data.session.user;
@@ -166,6 +182,16 @@ export default function UrbanCompilerPage() {
             role: u.user_metadata?.role || 'Municipal Spatial Analyst',
             isDemo: false
           });
+
+          // If returning from OAuth redirect with token hash or code, jump straight to workspace
+          if (
+            typeof window !== 'undefined' &&
+            (window.location.hash.includes('access_token') ||
+              window.location.search.includes('code') ||
+              window.location.href.includes('#'))
+          ) {
+            setAppView('WORKSPACE');
+          }
         }
       } catch (e) {
         console.warn('[AUTH] Could not restore Supabase session:', e);
@@ -174,7 +200,7 @@ export default function UrbanCompilerPage() {
     restoreSession();
 
     if (!supabase) return;
-    const { data: authSub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: authSub } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         const u = session.user;
         setCurrentUser({
@@ -183,6 +209,12 @@ export default function UrbanCompilerPage() {
           role: u.user_metadata?.role || 'Municipal Spatial Analyst',
           isDemo: false
         });
+        if (event === 'SIGNED_IN') {
+          setAppView('WORKSPACE');
+        }
+      } else if (event === 'SIGNED_OUT') {
+        setCurrentUser(null);
+        setAppView('LANDING');
       }
     });
 
@@ -520,6 +552,15 @@ export default function UrbanCompilerPage() {
           }}
           onOpenAuth={() => setIsAuthOpen(true)}
           onExploreDemo={handleLoadDemoSite}
+          currentUser={currentUser}
+          onSignOut={async () => {
+            try {
+              if (supabase) await supabase.auth.signOut();
+            } catch (err) {
+              console.warn('[AUTH] Sign out error:', err);
+            }
+            setCurrentUser(null);
+          }}
         />
 
         <AuthModal
