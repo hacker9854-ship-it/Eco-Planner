@@ -6,10 +6,29 @@ import { THANE_DEMO_ANALYSIS } from '@/lib/demo/demoData';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const polygon: SitePolygon = body.polygon;
+    const rawPolygon = body.polygon;
+    let polygon: SitePolygon;
 
-    if (!polygon || !polygon.geometry || !polygon.geometry.coordinates) {
-      return NextResponse.json({ error: 'Valid SitePolygon GeoJSON is required' }, { status: 400 });
+    if (!rawPolygon) {
+      return NextResponse.json({ error: 'SitePolygon GeoJSON is required' }, { status: 400 });
+    }
+
+    if (rawPolygon.type === 'Feature' && rawPolygon.geometry?.coordinates) {
+      polygon = rawPolygon;
+    } else if (rawPolygon.type === 'Polygon' && Array.isArray(rawPolygon.coordinates)) {
+      polygon = {
+        type: 'Feature',
+        geometry: rawPolygon,
+        properties: {
+          name: 'Custom Site',
+          areaSquareMeters: 0,
+          areaHectares: 0,
+          perimeterMeters: 0,
+          createdAt: new Date().toISOString()
+        }
+      };
+    } else {
+      return NextResponse.json({ error: 'Valid Polygon geometry or Feature is required' }, { status: 400 });
     }
 
     const analysis = await SiteAnalyzer.analyzeSite(polygon);
