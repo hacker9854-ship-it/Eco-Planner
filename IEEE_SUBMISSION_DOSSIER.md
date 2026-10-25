@@ -17,7 +17,7 @@
 | **Smart Contracts (Polygon Amoy)** | - `EcoEvidenceRegistry.sol`: [`0x35688536f87C414c77c6a9c1A3c847d066922F26`](https://amoy.polygonscan.com/address/0x35688536f87C414c77c6a9c1A3c847d066922F26)<br>- `UrbanCarbonCredit.sol`: [`0x8842Af529D7E842187b5a5B49d863f6C5110E9e1`](https://amoy.polygonscan.com/address/0x8842Af529D7E842187b5a5B49d863f6C5110E9e1)<br>- `ParametricGreenBond.sol`: [`0x497eA73Ff52b61D1537e2D48c7A5Ac387D344B60`](https://amoy.polygonscan.com/address/0x497eA73Ff52b61D1537e2D48c7A5Ac387D344B60) |
 | **Automated Verification** | 10/10 Passing Full System E2E & Live API Tests (`node scripts/verify_e2e_full.js`) |
 | **Frontend UI** | Next.js 16.3 (Turbopack) + React 19.2 + MapLibre GL 6.10 + Turf.js 7.4 (Zero TypeScript Errors) |
-| **Repository** | [https://github.com/Niss54/EcoPlaner](https://github.com/Niss54/EcoPlaner) |
+| **Repository** | [https://github.com/hacker9854-ship-it/Eco-Planner](https://github.com/hacker9854-ship-it/Eco-Planner) |
 | **Official Devpost Form** | [DEVPOST_SUBMISSION.md](./DEVPOST_SUBMISSION.md) |
 | **Fast-Track Acceptance Dossier** | [evaluation/ACCEPTANCE_REPORT.md](./evaluation/ACCEPTANCE_REPORT.md) |
 | **Master Jury Defense Playbook** | [evaluation/cross_questions.md](./evaluation/cross_questions.md) |

@@ -383,7 +383,7 @@ node scripts/verify_e2e_full.js
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Niss54/EcoPlaner.git
+git clone https://github.com/hacker9854-ship-it/Eco-Planner.git
 cd EcoPlaner
 ```
 
@@ -485,7 +485,7 @@ EcoPlaner/
 
 ## 👤 11. Author Credits
 
-* **Nissh** — Solo Creator & Lead Architect ([GitHub: @Niss54](https://github.com/Niss54))
+* **Nissh** — Solo Creator & Lead Architect ([GitHub: @hacker9854-ship-it](https://github.com/hacker9854-ship-it))
 
 ---
 

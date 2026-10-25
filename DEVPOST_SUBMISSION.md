@@ -30,7 +30,7 @@
   `Nissh`
 
 * **Public Code Repository:**  
-  [https://github.com/Niss54/EcoPlaner](https://github.com/Niss54/EcoPlaner)
+  [https://github.com/hacker9854-ship-it/Eco-Planner](https://github.com/hacker9854-ship-it/Eco-Planner)
 
 * **Smart Contract Testbed (Polygon Amoy — Chain ID 80002):**  
   - **`EcoEvidenceRegistry.sol`**: [`0x35688536f87C414c77c6a9c1A3c847d066922F26`](https://amoy.polygonscan.com/address/0x35688536f87C414c77c6a9c1A3c847d066922F26)
@@ -175,7 +175,7 @@ EcoPlanar-Chain provides an end-to-end platform for municipal town planners, ESG
 
 | Deliverable | Location / URL | Status |
 | :--- | :--- | :---: |
-| **Code Repository** | [GitHub Repo Link](https://github.com/Niss54/EcoPlaner) | ✅ Public & Clean |
+| **Code Repository** | [GitHub Repo Link](https://github.com/hacker9854-ship-it/Eco-Planner) | ✅ Public & Clean |
 | **Executive PRD** | [`PRD.md`](./PRD.md) | ✅ Complete |
 | **IEEE Submission Dossier** | [`IEEE_SUBMISSION_DOSSIER.md`](./IEEE_SUBMISSION_DOSSIER.md) | ✅ Complete |
 | **Fast-Track Acceptance Report** | [`evaluation/ACCEPTANCE_REPORT.md`](./evaluation/ACCEPTANCE_REPORT.md) | ✅ Complete |

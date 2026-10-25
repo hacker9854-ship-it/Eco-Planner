@@ -146,7 +146,7 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
     setTimeout(() => {
       setIsMinting(false);
       setMintSuccess(true);
-      setMintTxHash(`0x7a3f89e${Math.random().toString(16).substring(2, 10)}${Math.random().toString(16).substring(2, 10)}`);
+      setMintTxHash(`0x8842Af529D7E842187b5a5B49d863f6C5110E9e1`);
     }, 1200);
   };
 
@@ -343,15 +343,15 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
                     <div className="text-slate-500 text-[10px]">PINATA IPFS CIDv1 CANONICAL STORAGE BUNDLE:</div>
                     <div className="flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-sky-300">
                       <span className="truncate mr-2">{evidenceData?.ipfsCid || 'Computing IPFS CID...'}</span>
-                      <a
-                        href={evidenceData?.gatewayUrl || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sky-400 hover:text-sky-300 flex items-center gap-1 text-[10px] shrink-0"
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('canonical')}
+                        className="text-sky-400 hover:text-sky-300 flex items-center gap-1 text-[10px] shrink-0 font-semibold"
+                        title="Inspect RFC-8785 Canonical JSON Payload"
                       >
-                        <span>IPFS Gateway</span>
+                        <span>Inspect Payload</span>
                         <ExternalLink className="w-3 h-3" />
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -383,12 +383,12 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
                         <span>Minted Successfully!</span>
                       </span>
                       <a
-                        href={`https://amoy.polygonscan.com/tx/${mintTxHash}`}
+                        href="https://amoy.polygonscan.com/address/0x8842Af529D7E842187b5a5B49d863f6C5110E9e1#writeContract"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[10px] font-mono text-purple-700 hover:underline flex items-center gap-1 justify-end mt-1 font-semibold"
                       >
-                        <span className="truncate max-w-[150px]">Tx: {mintTxHash}</span>
+                        <span className="truncate max-w-[170px]">Contract: 0x8842...E9e1</span>
                         <ExternalLink className="w-3 h-3 shrink-0" />
                       </a>
                     </div>

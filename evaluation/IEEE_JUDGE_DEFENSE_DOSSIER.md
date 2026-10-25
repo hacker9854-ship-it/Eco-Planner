@@ -1,6 +1,6 @@
 # 🛡️ EcoPlanar-Chain: Master Cross-Examination Defense Dossier
 ## IEEE ClimateChain Hackathon 2026: Jury & Academic Defense Manual
-### Target Project: `EcoPlanar-Chain` ([GitHub Repository](https://github.com/Niss54/EcoPlaner))
+### Target Project: `EcoPlanar-Chain` ([GitHub Repository](https://github.com/hacker9854-ship-it/Eco-Planner))
 **Author:** Nissh  
 **Version:** 2.0.0 (Peer-Review Edition)  
 

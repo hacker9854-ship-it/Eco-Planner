@@ -1,6 +1,6 @@
 # 🎯 EcoPlanar-Chain: Master Hackathon Cross-Questions & Defense Bible
 ## Comprehensive Q&A Manual for Jury, Technical Evaluators & Urban Stakeholders
-**Repository:** [https://github.com/Niss54/EcoPlaner](https://github.com/Niss54/EcoPlaner)  
+**Repository:** [https://github.com/hacker9854-ship-it/Eco-Planner](https://github.com/hacker9854-ship-it/Eco-Planner)  
 **Standard:** IEEE 830-1998 Software Requirements Specification & GRAVITAS Reliability Runtime  
 **Target Tracks:** ClimateTech, Web3/ReFi, Smart Cities/GovTech, and General AI Hackathons  
 
