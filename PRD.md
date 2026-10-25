@@ -20,7 +20,7 @@ Rapid, unplanned urbanization across developing economies (especially in Indian 
 ### 1.2 The Solution: EcoPlanar-Chain
 **EcoPlanar-Chain** is an end-to-end, neuro-symbolic GIS compiler and on-chain Measurement, Reporting, and Verification (dMRV) protocol that bridges natural language ecological intent with verifiable Web3 carbon finance:
 - **Natural Language Compilation**: Municipal authorities and urban planners express multi-objective goals in plain language (*"Reduce monsoon flooding first, mitigate heat island effects, increase native biodiversity without demolishing existing structures under a ₹50 Lakh budget"*).
-- **Neuro-Symbolic Spatial Solver**: A dual-engine pipeline pairs Google Gemini 1.5 Pro (cognitive intent extraction) with deterministic Turf.js spatial topology validation, eliminating LLM geometric hallucinations.
+- **Neuro-Symbolic Spatial Solver**: A dual-engine pipeline pairs Gemini 3.8 Flash + Groq 600ms failover (cognitive intent extraction) with deterministic Turf.js spatial topology validation, eliminating LLM geometric hallucinations.
 - **Multi-Objective Scenario Optimization**: Automatically compiles 3 Pareto-optimal spatial masterplans: **Flood-First**, **Biodiversity-First**, and **Balanced**.
 - **Cryptographic Provenance Engine**: All spatial geometries, environmental telemetry baselines, and impact calculations are canonicalized under **RFC-8785** and hashed with **Keccak-256**.
 - **On-Chain Settlement & Parametric Green Bonds**: Directly interfaces with EVM smart contracts (`EcoEvidenceRegistry.sol`, `UrbanCarbonCredit.sol`, and `ParametricGreenBond.sol`) on **Polygon Amoy (Chain ID 80002)**, unlocking automated milestone funding and minting verifiable Urban Carbon Credits (UCC).
@@ -50,7 +50,7 @@ Most hackathon submissions in Track 1 operate on abstract spreadsheet tokens div
                                             ▼
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ NEURO-SYMBOLIC SPATIAL COMPILER & RFC-8785 CANONICAL DIGEST ENGINE                    │
-│ • Intent Parsing (Gemini 1.5 Pro) + Bounded Geometric Candidate Synthesis              │
+│ • Intent Parsing (Gemini 3.8 / Groq 600ms) + Bounded Geometric Candidate Synthesis     │
 │ • Multi-Objective Pareto Optimization (Cost vs Runoff vs Biomass Sequestration)        │
 │ • RFC-8785 Key-Sorted Canonicalization ➔ Keccak-256 Digest ➔ IPFS CID Pinning          │
 └───────────────────────────────────────────┬────────────────────────────────────────────┘
@@ -82,7 +82,7 @@ Most hackathon submissions in Track 1 operate on abstract spreadsheet tokens div
 ### 4.1 The Neuro-Symbolic Philosophy
 Pure Large Language Models (LLMs) suffer from fatal geometric hallucination: they output overlapping polygons, self-intersecting loops, or place Miyawaki forests directly over arterial highways and residential buildings.
 EcoPlanar-Chain solves this by dividing execution into two distinct cognitive tiers:
-1. **Neural Component (Gemini 1.5 Pro)**: Natural language semantic extraction, priority weight assignment, and qualitative scenario titling.
+1. **Neural Component (Gemini 3.8 Flash + Groq 600ms failover)**: Natural language semantic extraction, priority weight assignment, and qualitative scenario titling.
 2. **Symbolic / Deterministic Component (Turf.js & OpenStreetMap)**: Rigid mathematical topology operations, clipping to site bounding boxes, buffer intersections, and physical budget arithmetic.
 
 ```mermaid
@@ -101,7 +101,7 @@ flowchart TD
     end
 
     subgraph COMPILER["3. Neuro-Symbolic Compiler Core"]
-        GEMINI["Gemini 1.5 Pro Intent Parser"]
+        GEMINI["Gemini 3.8 / Groq 600ms Intent Parser"]
         ENGINE["Intervention Engine (Spatial Candidates)"]
         OPTIMIZER["Scenario Optimizer (Multi-Objective Pareto)"]
     end
@@ -260,7 +260,7 @@ In accordance with the **GRAVITAS Engineering Reliability Framework**:
 | Hackathon Judging Criterion | Weight | How EcoPlanar-Chain Achieves Maximum Score |
 | :--- | :---: | :--- |
 | **Track Alignment & Blockchain Rigor** | 25% | Solves real-world Carbon Market double-counting with on-chain `EcoEvidenceRegistry.sol`, ERC-20 UCC tokens, and `ParametricGreenBond.sol` on Polygon Amoy. |
-| **Technical Innovation & AI Depth** | 25% | Novel Neuro-Symbolic GIS compiler pairing Gemini 1.5 Pro with Turf.js topological constraint solvers; eliminates LLM geometric hallucinations. |
+| **Technical Innovation & AI Depth** | 25% | Novel Neuro-Symbolic GIS compiler pairing Gemini 3.8 Flash + Groq 600ms failover with Turf.js topological constraint solvers; eliminates LLM geometric hallucinations. |
 | **Real-World Climate Impact** | 20% | Directly addresses urban climate adaptation in high-density Indian and global cities; quantifies runoff reduction (liters) and carbon sequestration (tons). |
 | **User Experience & GIS Visualization** | 15% | High-fidelity MapLibre GL WebGL interface with 60fps rendering, before/after comparison sliders, and one-click municipal DPR generation. |
 | **Completeness & Reproducibility** | 15% | Zero TypeScript errors, 10/10 automated verification tests passing, comprehensive documentation dossier, and clear 3-minute video pitch script. |
