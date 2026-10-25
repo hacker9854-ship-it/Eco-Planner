@@ -1,6 +1,6 @@
 # 🏆 EcoPlanar-Chain: IEEE ClimateChain Hackathon Executive Submission Dossier
 > **Autonomous Geospatial AI Ecological Decision Support, Verifiable Telemetry & On-Chain dMRV Protocol**  
-> **Team Syntrix | Lead Architect: Nishant Maurya**
+> **Author: Nissh**
 
 ---
 

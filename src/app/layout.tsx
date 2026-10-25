@@ -4,6 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'EcoPlanar | Geospatial AI Environmental Decision Support',
   description: 'Give a city its environmental requirements. EcoPlanar compiles a feasible ecological plan using real satellite telemetry and constraint-aware spatial optimization.',
+  authors: [{ name: 'Nissh' }],
   manifest: '/manifest.json'
 };
 

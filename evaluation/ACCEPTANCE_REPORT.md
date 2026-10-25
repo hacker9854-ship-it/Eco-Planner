@@ -1,6 +1,6 @@
 # ⚡ 2-MINUTE FAST-TRACK ACCEPTANCE & VERIFICATION DOSSIER
 ## IEEE ClimateChain Global Hackathon 2026 | Project: EcoPlanar-Chain (Enterprise dMRV)
-### Team Syntrix | Lead Architect: Nishant Maurya
+### Author: Nissh
 
 > [!IMPORTANT]
 > **NOTE FOR EVALUATORS & JURY MEMBERS (120-SECOND VERIFICATION):**  

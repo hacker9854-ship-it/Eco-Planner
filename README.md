@@ -483,10 +483,9 @@ EcoPlaner/
 
 ---
 
-## 👥 11. Authors & Academic Credits
+## 👤 11. Author Credits
 
-* **Nishant Maurya** — Lead System Architect & Protocol Designer ([GitHub: @Niss54](https://github.com/Niss54))
-* **Team Syntrix** — IEEE ClimateChain Global Hackathon 2026 Submission
+* **Nissh** — Solo Creator & Lead Architect ([GitHub: @Niss54](https://github.com/Niss54))
 
 ---
 

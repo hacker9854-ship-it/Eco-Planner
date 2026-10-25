@@ -1,7 +1,7 @@
 # 🌿 EcoPlanar-Chain: Product Requirements Document (PRD)
 ## Autonomous Geospatial AI Ecological Decision Support & On-Chain MRV Protocol
 ### Target Hackathon: IEEE ClimateChain Global Hackathon 2026
-**Author:** Team Syntrix (Lead Architect: Nishant Maurya)  
+**Author:** Nissh  
 **Standard:** IEEE 830-1998 Software Requirements Specification & GRAVITAS Verification Runtime  
 **Version:** 2.0.0-ENTERPRISE  
 **Date:** October 2026  

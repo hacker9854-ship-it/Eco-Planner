@@ -1,7 +1,7 @@
 # 🛡️ EcoPlanar-Chain: Master Cross-Examination Defense Dossier
 ## IEEE ClimateChain Hackathon 2026: Jury & Academic Defense Manual
 ### Target Project: `EcoPlanar-Chain` ([GitHub Repository](https://github.com/Niss54/EcoPlaner))
-**Author:** Team Syntrix | Lead Architect: Nishant Maurya  
+**Author:** Nissh  
 **Version:** 2.0.0 (Peer-Review Edition)  
 
 ---
@@ -10,7 +10,7 @@
 
 In an IEEE academic hackathon, **unsupported marketing claims kill projects; transparent scientific integrity wins them.**
 
-A typical hackathon team makes sweeping claims: *"Our AI generates 100% accurate urban masterplans," "Our blockchain permanently eliminates all carbon fraud," "We process sub-meter satellite imagery in real time on the client."* When an expert IEEE judge (typically a PhD researcher, climate GIS scientist, or smart contract protocol engineer) inspects the code and discovers unvalidated prompts, synthetic numbers, or zero blockchain implementation, they immediately penalize the project.
+A typical hackathon entrant makes sweeping claims: *"Our AI generates 100% accurate urban masterplans," "Our blockchain permanently eliminates all carbon fraud," "We process sub-meter satellite imagery in real time on the client."* When an expert IEEE judge (typically a PhD researcher, climate GIS scientist, or smart contract protocol engineer) inspects the code and discovers unvalidated prompts, synthetic numbers, or zero blockchain implementation, they immediately penalize the project.
 
 **EcoPlanar-Chain takes the opposite approach:**
 Every metric, formula, satellite resolution limitation, and cryptographic proof is disclosed with academic rigor. When a judge asks a critical cross-question, our answers do not deflect—they demonstrate deep domain mastery, reveal the exact physical bounds of each module, and point to reproducible test suites.
@@ -83,7 +83,7 @@ This dossier provides the **complete, battle-tested defense playbook** for every
 
 ### Module 4: Anti-Double-Counting on Public Land
 #### ❓ Judge Question 4.1:
-> *"What stops a fraudulent developer from copying another team's site boundary and re-registering it to claim duplicate carbon credits or bond financing?"*
+> *"What stops a fraudulent developer from copying another project's site boundary and re-registering it to claim duplicate carbon credits or bond financing?"*
 
 #### 💡 Prepared Defense Answer:
 > *"Our smart contract `EcoEvidenceRegistry.sol` implements a Geographic Centroid Nullifier mapping (`mapping(bytes32 => bool) registeredCentroids`). When any plan is submitted, its geographic center point is scaled to integer micro-degrees (`latE6 = round(lat * 1e6)`) and hashed into a centroid key (`keccak256(abi.encodePacked(latE6, lngE6))`).*  

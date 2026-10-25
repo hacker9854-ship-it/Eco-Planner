@@ -26,8 +26,8 @@
   **"Verifiable Spatial Telemetry is the Empirical Truth (Track 4); On-Chain Carbon Settlement & Parametric Green Bonds is the Automated Consequence (Track 1)."**  
   While traditional carbon projects rely on opaque, self-reported spreadsheets prone to fraud and double-counting, EcoPlanar-Chain mathematically anchors every minted carbon credit (`UrbanCarbonCredit.sol`) and parametric green bond disbursement (`ParametricGreenBond.sol`) in verifiable satellite rasters (Copernicus Sentinel-2), NASA SRTM elevation physics, and RFC-8785 Keccak-256 evidence digests.
 
-* **Author & Lead Architect:**  
-  `Nishant Maurya (Lead System Architect, Team Syntrix)`
+* **Author:**  
+  `Nissh`
 
 * **Public Code Repository:**  
   [https://github.com/Niss54/EcoPlaner](https://github.com/Niss54/EcoPlaner)

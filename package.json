@@ -2,6 +2,7 @@
   "name": "ecoplanar",
   "version": "0.1.0",
   "private": true,
+  "author": "Nissh",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
