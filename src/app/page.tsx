@@ -19,6 +19,7 @@ import { DetailedProjectReportModal } from '@/components/dpr/DetailedProjectRepo
 import { NeuroSymbolicModal } from '@/components/architecture/NeuroSymbolicModal';
 import { NativeSpeciesModal } from '@/components/biodiversity/NativeSpeciesModal';
 import { Web3VerificationModal } from '@/components/web3/Web3VerificationModal';
+import { supabase } from '@/lib/supabase/client';
 import { toFeatures, normalizeSite, computeImpact } from '@/lib/geo/impact';
 import { ImpactCards } from '@/components/results/ImpactCards';
 
@@ -150,6 +151,45 @@ export default function UrbanCompilerPage() {
   const [isWeb3Open, setIsWeb3Open] = useState(false);
   const [rainfallIntensityMm, setRainfallIntensityMm] = useState<number>(65);
   const [inspectedMetric, setInspectedMetric] = useState<MetricWithProvenance<any> | null>(null);
+
+  // ── Supabase Auth Listener (Session Restore on OAuth Redirect) ──
+  useEffect(() => {
+    async function restoreSession() {
+      try {
+        if (!supabase) return;
+        const { data } = await supabase.auth.getSession();
+        if (data?.session?.user) {
+          const u = data.session.user;
+          setCurrentUser({
+            name: u.user_metadata?.full_name || u.user_metadata?.name || u.email?.split('@')[0] || 'Urban Planner',
+            email: u.email || 'planner@ecoplanar.local',
+            role: u.user_metadata?.role || 'Municipal Spatial Analyst',
+            isDemo: false
+          });
+        }
+      } catch (e) {
+        console.warn('[AUTH] Could not restore Supabase session:', e);
+      }
+    }
+    restoreSession();
+
+    if (!supabase) return;
+    const { data: authSub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        const u = session.user;
+        setCurrentUser({
+          name: u.user_metadata?.full_name || u.user_metadata?.name || u.email?.split('@')[0] || 'Urban Planner',
+          email: u.email || 'planner@ecoplanar.local',
+          role: u.user_metadata?.role || 'Municipal Spatial Analyst',
+          isDemo: false
+        });
+      }
+    });
+
+    return () => {
+      authSub?.subscription?.unsubscribe();
+    };
+  }, []);
 
   // Active interventions for current scenario
   const rawInterventions = optimizationResult

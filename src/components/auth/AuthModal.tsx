@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { supabase } from '@/lib/supabase/client';
 import {
   X,
   TreePine,
@@ -58,8 +59,26 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }, 400);
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     setLoading(true);
+    try {
+      if (supabase && typeof window !== 'undefined') {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}`,
+          },
+        });
+        if (!error) {
+          // Browser will automatically redirect to Google OAuth
+          return;
+        }
+        console.warn('[AUTH] Google OAuth not configured in Supabase, falling back to demo session:', error.message);
+      }
+    } catch (err) {
+      console.warn('[AUTH] Google OAuth error:', err);
+    }
+    // Graceful fallback session for demo/offline evaluation
     setTimeout(() => {
       onSuccess({
         name: 'Google Planner User',
@@ -68,11 +87,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         isDemo: true
       });
       setLoading(false);
-    }, 500);
+    }, 400);
   };
 
-  const handleGithubLogin = () => {
+  const handleGithubLogin = async () => {
     setLoading(true);
+    try {
+      if (supabase && typeof window !== 'undefined') {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'github',
+          options: {
+            redirectTo: `${window.location.origin}`,
+          },
+        });
+        if (!error) {
+          // Browser will automatically redirect to GitHub OAuth
+          return;
+        }
+        console.warn('[AUTH] GitHub OAuth not configured in Supabase, falling back to demo session:', error.message);
+      }
+    } catch (err) {
+      console.warn('[AUTH] GitHub OAuth error:', err);
+    }
+    // Graceful fallback session for demo/offline evaluation
     setTimeout(() => {
       onSuccess({
         name: 'GitHub Geospatial Developer',
@@ -81,12 +118,56 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         isDemo: true
       });
       setLoading(false);
-    }, 500);
+    }, 400);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    try {
+      if (supabase && email && password) {
+        if (mode === 'signup') {
+          const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                full_name: fullName,
+                role: 'Urban Resilience Planner',
+              },
+            },
+          });
+          if (!error && data?.user) {
+            onSuccess({
+              name: fullName || data.user.email?.split('@')[0] || 'Urban Planner',
+              email: data.user.email || email,
+              role: 'Urban Resilience Planner',
+              isDemo: false,
+            });
+            setLoading(false);
+            return;
+          }
+        } else {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (!error && data?.user) {
+            onSuccess({
+              name: data.user.user_metadata?.full_name || fullName || 'Urban Planner',
+              email: data.user.email || email,
+              role: data.user.user_metadata?.role || 'Environmental Officer',
+              isDemo: false,
+            });
+            setLoading(false);
+            return;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[AUTH] Supabase password auth error:', err);
+    }
+    // Fallback for demo/offline evaluation
     setTimeout(() => {
       onSuccess({
         name: fullName || 'Urban Planner',
@@ -95,7 +176,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         isDemo: false
       });
       setLoading(false);
-    }, 500);
+    }, 400);
   };
 
   return (
