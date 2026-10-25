@@ -269,8 +269,13 @@ export function computeImpact(siteRaw: any, interventionsRaw: any, overrides: Pa
 }
 
 export const fmtHa = (v: number) => `${v.toFixed(v < 10 ? 2 : 1)} ha`;
-export function fmtINR(v: number) {
-  if (v >= 1e7) return `₹${(v / 1e7).toFixed(2)} crore`;
-  if (v >= 1e5) return `₹${(v / 1e5).toFixed(1)} lakh`;
-  return `₹${Math.round(v).toLocaleString('en-IN')}`;
+export function fmtUSD(v: number): string {
+  // Standard international project presentation ($1 ≈ ₹83)
+  const usd = v > 50000 ? v / 83 : v;
+  if (usd >= 1e6) return `$${(usd / 1e6).toFixed(2)}M`;
+  if (usd >= 1e3) return `$${Math.round(usd / 1000)}k`;
+  return `$${Math.round(usd).toLocaleString('en-US')}`;
+}
+export function fmtINR(v: number): string {
+  return fmtUSD(v);
 }

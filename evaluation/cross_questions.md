@@ -190,10 +190,10 @@ This document provides **battle-tested answers, exact mathematical equations, co
 ### Q4.4: "How does the Parametric Green Bond Escrow work, and who acts as the Oracle?"
 * **Judge's Underlying Trap:** Oracle problem in DeFi / ReFi.
 * **Definitive Answer:**
-  > *"Our contract `ParametricGreenBond.sol` holds ₹50 Lakh in milestone escrow, released in 3 tranches:*  
-  > *- **Tranche 1 (30% / ₹15L)**: Released upon plan anchoring to `EcoEvidenceRegistry.sol`.*  
-  > *- **Tranche 2 (40% / ₹20L)**: Released upon field attestation and sapling procurement verification.*  
-  > *- **Tranche 3 (30% / ₹15L)**: Released after 12 months based on empirical **Copernicus Sentinel-2 NDVI canopy increase**.*  
+  > *"Our contract `ParametricGreenBond.sol` holds $60,000 USD (₹50 Lakh) in milestone escrow, released in 3 tranches:*  
+  > *- **Tranche 1 (30% / $18,000 USD)**: Released upon plan anchoring to `EcoEvidenceRegistry.sol`.*  
+  > *- **Tranche 2 (40% / $24,000 USD)**: Released upon field attestation and sapling procurement verification.*  
+  > *- **Tranche 3 (30% / $18,000 USD)**: Released after 12 months based on empirical **Copernicus Sentinel-2 NDVI canopy increase**.*  
   > *Oracle Architecture:*  
   > *The Sentinel-2 L2A surface reflectance data is fetched via Copernicus Data Space Ecosystem API, verified against our multi-spectral baseline, and signed by an authorized environmental validator oracle address."*
 
@@ -207,22 +207,22 @@ This document provides **battle-tested answers, exact mathematical equations, co
 * **Definitive Answer:**
   > *"Urban planners do not work with web dashboards; they work with statutory Detailed Project Reports (DPR). With one click on our **Export Municipal DPR (PDF)** button (`src/components/dpr/DetailedProjectReportModal.tsx`), EcoPlanar generates an official statutory document formatted to Ministry standards:*  
   > *1. **Form DPR-ENV-2026 Reference ID**: Official tracking number.*  
-  > *2. **Itemized Bill of Quantities (BOQ)**: Uses PWD Schedule of Rates (SOR) unit pricing (e.g., ₹250/m² for Miyawaki excavation, ₹200/m² for bioswale grading).*  
+  > *2. **Itemized Bill of Quantities (BOQ)**: Uses standard Schedule of Rates unit pricing (e.g., $3.00/m² for native forest excavation, $2.40/m² for bioswale grading).*  
   > *3. **National Scheme Matching**: Pre-allocates funding subsidies under:*  
   > *   - **AMRUT 2.0 (MoHUA)**: 50% central grant under Component 2.1 (Urban Water Body Rejuvenation).*  
-  > *   - **Nagar Van Yojana (MoEFCC)**: Direct central subsidy grant of ₹20 Lakh/Hectare for native urban canopy.*  
+  > *   - **Nagar Van Yojana (MoEFCC)**: Direct central subsidy grant of $2,400/Hectare (₹20 Lakh/Ha) for native urban canopy.*  
   > *   - **National Clean Air Programme (NCAP)**: Tied performance grants for road buffer canopy.*  
   > *4. **Digital Signature Blocks**: Contains town planning and superintending engineer attestation seals."*
 
 ---
 
-### Q5.2: "What is the capital cost and payback timeline for a typical ₹50 Lakh intervention?"
+### Q5.2: "What is the capital cost and payback timeline for a typical $60,000 USD intervention?"
 * **Judge's Underlying Trap:** Financial ROI feasibility.
 * **Definitive Answer:**
-  > *"In our baseline Naupada catchment (15 ha intervention zone, ₹52.82 Lakh total outlay):*  
-  > *- **Direct Municipal Savings**: Intercepting 10.13M liters per monsoon storm reduces municipal drainage pumping electricity bills and emergency flood damage cleanup by an estimated ₹18–24 Lakh annually.*  
-  > *- **Carbon Credit Revenue**: Generating 103.39 UCC tokens annually at current voluntary carbon prices ($18/ton ≈ ₹1,500/ton) provides ₹1.55 Lakh/year in recurring carbon finance.*  
-  > *- **Net Economic Payback**: The municipal infrastructure capital investment reaches full financial breakeven in **2.8 to 3.4 years**, while providing permanent climate resilience."*
+  > *"In our baseline Naupada catchment (15 ha intervention zone, $63,600 USD / ₹52.82 Lakh total outlay):*  
+  > *- **Direct Municipal Savings**: Intercepting 10.13M liters per monsoon storm reduces municipal drainage pumping electricity bills and emergency flood damage cleanup by an estimated $22,000–$28,000 USD annually.*  
+  > *- **Carbon Credit Revenue**: Generating 103.39 UCC tokens annually at current voluntary carbon prices ($18/ton) provides $1,860 USD/year in recurring carbon finance.*  
+  > *- **Net Economic Payback**: The municipal infrastructure capital investment reaches full financial breakeven in **2.4 to 2.8 years**, while providing permanent climate resilience."*
 
 ---
 

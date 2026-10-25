@@ -341,7 +341,7 @@ export default function UrbanCompilerPage() {
       setIsCompilingScreenActive(true);
 
       const promptText = Array.isArray(prioritiesOrPrompt)
-        ? `Prioritize ${prioritiesOrPrompt.join(', ')} with budget ₹${(budgetInr / 100000).toFixed(0)} lakh, ${
+        ? `Prioritize ${prioritiesOrPrompt.join(', ')} with budget $${Math.round(budgetInr / 83).toLocaleString()} USD, ${
             constraints?.avoidDemolition ? 'no demolition of existing buildings' : ''
           }, ${constraints?.focusPublicSpaces ? 'focus on municipal public spaces' : ''}`
         : prioritiesOrPrompt;

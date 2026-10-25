@@ -115,7 +115,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
     },
     {
       label: 'Est. Cost',
-      value: impact ? fmtINR(impact.costINR) : (activeScenarioObj ? `₹${(activeScenarioObj.totalCostInr / 100000).toFixed(1)} lakh` : '₹44.8 lakh'),
+      value: impact ? fmtINR(impact.costINR) : (activeScenarioObj ? `$${Math.round(activeScenarioObj.totalCostInr / 83000)}k` : '$540k'),
       sub: 'Modeled public works allocation',
       color: 'text-slate-900',
       bg: 'bg-slate-50'
@@ -244,7 +244,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
                   ? `${(inv.properties.lengthMeters / 1000).toFixed(1)} km`
                   : null;
                 const costLakhs = inv.properties?.estimatedCostInr
-                  ? `₹${(inv.properties.estimatedCostInr / 100000).toFixed(1)}L`
+                  ? `$${Math.round(inv.properties.estimatedCostInr / 83000)}k`
                   : null;
 
                 return (

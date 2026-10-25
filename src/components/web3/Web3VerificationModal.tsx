@@ -153,38 +153,38 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fade-in text-slate-100">
-      <div className="bg-slate-900 border border-slate-700 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in text-slate-800">
+      <div className="bg-white border border-slate-200 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="p-2.5 bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-2xl">
+            <span className="p-2.5 bg-purple-50 text-purple-700 border border-purple-200 rounded-2xl">
               <Link2 className="w-5 h-5" />
             </span>
             <div>
-              <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 On-Chain dMRV & Cryptographic Settlement
-                <span className="text-[10px] font-mono bg-purple-950 text-purple-300 border border-purple-800 px-2.5 py-0.5 rounded-full font-bold">
+                <span className="text-[10px] font-mono bg-purple-100 text-purple-800 border border-purple-200 px-2.5 py-0.5 rounded-full font-bold">
                   Polygon Amoy (Chain 80002)
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 RFC-8785 Canonical Hashing, Centroid Nullifiers & Parametric Green Bonds
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2.5">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl font-mono text-[11px] text-slate-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 shadow-xs rounded-xl font-mono text-[11px] text-slate-700">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>0x71C8...Bb90</span>
-              <span className="text-[10px] text-purple-400 font-bold bg-purple-950/80 px-1.5 py-0.5 rounded border border-purple-800/80">
+              <span className="text-[10px] text-purple-700 font-bold bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200">
                 14.82 MATIC
               </span>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
+              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition"
             >
               <X className="w-5 h-5" />
             </button>
@@ -192,14 +192,14 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-950/70 border-b border-slate-800/80 text-xs font-semibold overflow-x-auto">
+        <div className="flex items-center gap-2 px-6 py-2.5 bg-slate-100/70 border-b border-slate-200 text-xs font-semibold overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab('settlement')}
             className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
               activeTab === 'settlement'
-                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-purple-900 border border-purple-300 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             dMRV Settlement & Offsets
@@ -209,8 +209,8 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
             onClick={() => setActiveTab('canonical')}
             className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
               activeTab === 'canonical'
-                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-purple-900 border border-purple-300 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             RFC-8785 Canonical Payload
@@ -220,8 +220,8 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
             onClick={() => setActiveTab('calldata')}
             className={`px-3 py-1.5 rounded-xl transition shrink-0 ${
               activeTab === 'calldata'
-                ? 'bg-purple-900/60 text-purple-300 border border-purple-700 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-purple-900 border border-purple-300 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             EVM ABI & Calldata
@@ -358,19 +358,19 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
               </div>
 
               {/* Urban Carbon Credit Tokenization Panel */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-teal-950/40 border border-emerald-800/60 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
-                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                    <Coins className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
+                    <Coins className="w-4 h-4 text-emerald-700" />
                     <span>Urban Carbon Credits (UCC) Minting</span>
                   </div>
-                  <p className="text-[11px] text-slate-300 mt-1">
+                  <p className="text-[11px] text-slate-600 mt-1">
                     Based on IPCC Tier-1 Allometric Growth ({evidenceData?.carbonYield.totalAnnualCarbonKg.toLocaleString() || '72,250'} kg CO₂e/yr):
                   </p>
-                  <div className="text-lg font-black text-white font-mono mt-1">
+                  <div className="text-lg font-black text-slate-900 font-mono mt-1">
                     {evidenceData?.carbonYield.urbanCarbonCreditTokens || 72.26} UCC Tokens{' '}
-                    <span className="text-xs font-normal text-emerald-300">
-                      (≈ ₹{(evidenceData?.carbonYield.estimatedCarbonCreditValueInr || 108390).toLocaleString()} Annual Carbon Finance)
+                    <span className="text-xs font-semibold text-emerald-800">
+                      (≈ ${Math.round((evidenceData?.carbonYield.estimatedCarbonCreditValueInr || 108390) / 83).toLocaleString()} USD Annual Carbon Finance)
                     </span>
                   </div>
                 </div>
@@ -378,15 +378,15 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
                 <div className="flex flex-col items-end gap-2 w-full md:w-auto">
                   {mintSuccess ? (
                     <div className="text-right">
-                      <span className="px-3 py-1 rounded-xl bg-emerald-900/80 text-emerald-300 border border-emerald-700 font-mono text-xs flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <span className="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 font-mono text-xs flex items-center gap-1.5 font-bold">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                         <span>Minted Successfully!</span>
                       </span>
                       <a
                         href={`https://amoy.polygonscan.com/tx/${mintTxHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] font-mono text-purple-400 hover:underline flex items-center gap-1 justify-end mt-1"
+                        className="text-[10px] font-mono text-purple-700 hover:underline flex items-center gap-1 justify-end mt-1 font-semibold"
                       >
                         <span className="truncate max-w-[150px]">Tx: {mintTxHash}</span>
                         <ExternalLink className="w-3 h-3 shrink-0" />
@@ -397,7 +397,7 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
                       type="button"
                       onClick={handleMintUCC}
                       disabled={isMinting}
-                      className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
+                      className="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
                     >
                       <Coins className="w-4 h-4" />
                       <span>{isMinting ? 'Broadcasting to Polygon Amoy...' : 'Mint Verified Carbon Credits'}</span>
@@ -407,51 +407,51 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
               </div>
 
               {/* Parametric Green Bond Tranches */}
-              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
-                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono flex items-center justify-between">
-                  <span>Parametric Green Bond Escrow Tranches (₹50 Lakh Escrow)</span>
-                  <span className="text-blue-400 text-[10px]">Smart Contract Escrow</span>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <div className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono flex items-center justify-between">
+                  <span>Parametric Green Bond Escrow Tranches ($60,000 USD Escrow)</span>
+                  <span className="text-blue-700 text-[10px] font-bold">Smart Contract Escrow</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {/* Tranche 1 */}
-                  <div className="p-3 rounded-xl bg-slate-900 border border-emerald-800/80">
+                  <div className="p-3 rounded-xl bg-white border border-emerald-300 shadow-xs">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-emerald-400 text-xs">Tranche 1 (30%)</span>
-                      <span className="text-[9px] font-mono bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800">
+                      <span className="font-bold text-emerald-800 text-xs">Tranche 1 (30%)</span>
+                      <span className="text-[9px] font-mono bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300 font-bold">
                         RELEASED
                       </span>
                     </div>
-                    <div className="text-base font-black text-white font-mono">₹15,00,000</div>
-                    <div className="text-[10px] text-slate-400 mt-1">
+                    <div className="text-base font-black text-slate-900 font-mono">$18,000 USD</div>
+                    <div className="text-[10px] text-slate-500 mt-1">
                       Trigger: Canonical RFC-8785 Plan anchored to EcoEvidenceRegistry.
                     </div>
                   </div>
 
                   {/* Tranche 2 */}
-                  <div className="p-3 rounded-xl bg-slate-900 border border-amber-800/60">
+                  <div className="p-3 rounded-xl bg-white border border-amber-300 shadow-xs">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-amber-400 text-xs">Tranche 2 (40%)</span>
-                      <span className="text-[9px] font-mono bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800">
+                      <span className="font-bold text-amber-800 text-xs">Tranche 2 (40%)</span>
+                      <span className="text-[9px] font-mono bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-300 font-bold">
                         PENDING
                       </span>
                     </div>
-                    <div className="text-base font-black text-white font-mono">₹20,00,000</div>
-                    <div className="text-[10px] text-slate-400 mt-1">
+                    <div className="text-base font-black text-slate-900 font-mono">$24,000 USD</div>
+                    <div className="text-[10px] text-slate-500 mt-1">
                       Trigger: Soil preparation & sapling planting verified by field attestation.
                     </div>
                   </div>
 
                   {/* Tranche 3 */}
-                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-slate-400 text-xs">Tranche 3 (30%)</span>
-                      <span className="text-[9px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">
+                      <span className="font-bold text-slate-600 text-xs">Tranche 3 (30%)</span>
+                      <span className="text-[9px] font-mono bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200 font-bold">
                         LOCKED
                       </span>
                     </div>
-                    <div className="text-base font-black text-white font-mono">₹15,00,000</div>
-                    <div className="text-[10px] text-slate-400 mt-1">
+                    <div className="text-base font-black text-slate-900 font-mono">$18,000 USD</div>
+                    <div className="text-[10px] text-slate-500 mt-1">
                       Trigger: 12-Month Copernicus Sentinel-2 NDVI canopy growth proof.
                     </div>
                   </div>
@@ -526,7 +526,7 @@ export const Web3VerificationModal: React.FC<Web3VerificationModalProps> = ({
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
                   <span className="text-[10px] text-blue-400 font-bold block">3. PARAMETRICGREENBOND.SOL :: RELEASETRANCHE1</span>
                   <div className="text-[11px] text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800 overflow-x-auto">
-                    releaseTranche1(bytes32 planDigest, address municipalBeneficiary) ➔ Releases ₹15,00,000 (30%)
+                    releaseTranche1(bytes32 planDigest, address municipalBeneficiary) ➔ Releases $18,000 USD (30%)
                   </div>
                 </div>
               </div>

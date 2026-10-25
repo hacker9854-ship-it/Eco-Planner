@@ -16,7 +16,7 @@ export const CompilerPanel: React.FC<CompilerPanelProps> = ({
   isCompiling
 }) => {
   const [prompt, setPrompt] = useState(
-    "Reduce monsoon flooding first, then heat, increase biodiversity, don't demolish buildings, and keep the budget below ₹50 lakh."
+    "Reduce monsoon flooding first, then heat, increase biodiversity, don't demolish buildings, and keep the budget below $600,000 USD."
   );
   const [budgetLakhs, setBudgetLakhs] = useState<number>(50);
   const [showJson, setShowJson] = useState(false);
@@ -24,15 +24,15 @@ export const CompilerPanel: React.FC<CompilerPanelProps> = ({
   const samplePrompts = [
     {
       title: 'Monsoon Flood Resilience',
-      text: 'Prioritize monsoon flooding and stormwater absorption first, reduce street ponding, add rain gardens and bioswales without demolishing buildings under ₹45 lakh.'
+      text: 'Prioritize monsoon flooding and stormwater absorption first, reduce street ponding, add rain gardens and bioswales without demolishing buildings under $550,000 USD.'
     },
     {
       title: 'Urban Rewilding & Habitat',
-      text: 'Maximize biodiversity, plant native Western Ghats Miyawaki pocket forests and pollinator gardens, create shaded tree corridors under ₹35 lakh.'
+      text: 'Maximize biodiversity, plant native Western Ghats Miyawaki pocket forests and pollinator gardens, create shaded tree corridors under $420,000 USD.'
     },
     {
       title: 'Heat Island & Rooftop Cooling',
-      text: 'Cool down the microclimate, install extensive lightweight green roofs on municipal buildings, shaded pedestrian tree corridors, budget ₹25 lakh.'
+      text: 'Cool down the microclimate, install extensive lightweight green roofs on municipal buildings, shaded pedestrian tree corridors, budget $300,000 USD.'
     }
   ];
 
@@ -115,7 +115,7 @@ export const CompilerPanel: React.FC<CompilerPanelProps> = ({
               <span>Budget Cap Constraint</span>
             </span>
             <span className="text-xs font-mono font-bold text-emerald-400">
-              ₹{budgetLakhs} Lakh
+              ${Math.round((budgetLakhs * 100000) / 83000)}k USD
             </span>
           </div>
 
@@ -130,9 +130,9 @@ export const CompilerPanel: React.FC<CompilerPanelProps> = ({
           />
 
           <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-            <span>₹5 Lakh (Micro)</span>
-            <span>₹50 Lakh (Standard)</span>
-            <span>₹1 Crore (Macro)</span>
+            <span>$60k (Micro)</span>
+            <span>$600k (Standard)</span>
+            <span>$1.2M (Macro)</span>
           </div>
         </div>
 

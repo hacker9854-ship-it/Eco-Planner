@@ -11,7 +11,7 @@ import * as turf from '@turf/turf';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const prompt: string = body.prompt || 'Reduce monsoon flooding first, then heat, increase biodiversity, don\'t demolish buildings and keep budget under ₹50 lakh';
+    const prompt: string = body.prompt || 'Reduce monsoon flooding first, then heat, increase biodiversity, don\'t demolish buildings and keep budget under $600,000 USD';
     const polygon: SitePolygon = body.polygon || THANE_DEMO_SITE_POLYGON;
     const analysis: SiteAnalysisData = body.analysis || THANE_DEMO_ANALYSIS;
     const budgetOverrideInr: number | undefined = body.budgetInr;

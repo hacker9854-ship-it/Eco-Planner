@@ -145,7 +145,7 @@ EcoPlanar-Chain provides an end-to-end platform for municipal town planners, ESG
 - **Narrator**: *"Watch our pipeline in action: with a single click, we select a high-density urban catchment. EcoPlanar-Chain immediately pulls real environmental telemetry: 30-meter NASA SRTM elevation, Open-Meteo rainfall reanalysis, Copernicus Sentinel-2 vegetation density, and OpenStreetMap building footprints."*
 
 #### [01:15 - 02:00] Neuro-Symbolic Compilation & 3-Scenario Optimization
-- **Visual**: User types: *'Reduce monsoon flooding first, mitigate heat, plant native trees under ₹50 Lakh.'* Click 'Compile Plan'. Three scenario cards appear.
+- **Visual**: User types: *'Reduce monsoon flooding first, mitigate heat, plant native trees under $600,000 USD.'* Click 'Compile Plan'. Three scenario cards appear.
 - **Narrator**: *"Instead of generic AI chat, our neuro-symbolic engine pairs Gemini 3.8 Flash (with sub-600ms Groq failover) with Turf.js computational geometry. The AI reasons about ecological priorities, while deterministic algorithms guarantee that bioswales and Miyawaki forests never encroach on existing buildings. In seconds, we receive three Pareto-optimal scenarios: Flood-First, Biodiversity-First, and Balanced, complete with interactive Before/After sliders."*
 
 #### [02:00 - 02:40] On-Chain MRV, Carbon Credits & Green Bonds

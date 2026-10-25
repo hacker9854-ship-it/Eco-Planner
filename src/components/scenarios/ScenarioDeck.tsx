@@ -125,7 +125,7 @@ export const ScenarioDeck: React.FC<ScenarioDeckProps> = ({
         <div className="flex items-center justify-between">
           <h4 className="text-xs font-bold text-slate-100">{currentScenario.title}</h4>
           <span className="text-[10px] font-mono font-semibold text-emerald-400">
-            ₹{(currentScenario.totalCostInr / 100000).toFixed(1)} Lakh ({currentScenario.budgetUtilizationPercent}% Budget)
+            ${Math.round(currentScenario.totalCostInr / 83000)}k USD ({currentScenario.budgetUtilizationPercent}% Budget)
           </span>
         </div>
         <p className="text-[11px] text-slate-400 leading-relaxed">

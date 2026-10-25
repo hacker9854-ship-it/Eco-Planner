@@ -390,8 +390,8 @@ export const THANE_DEMO_OPTIMIZED_SCENARIOS: OptimizationResult = {
         totalEstimatedCostInr: {
           name: 'Total Scenario Cost',
           value: 4480000,
-          formattedValue: '₹44.8 Lakh',
-          unit: 'INR',
+          formattedValue: '$540k USD',
+          unit: 'USD',
           provenance: {
             category: 'MODELED',
             source: 'CPWD Standard Schedule of Rates (Green Infrastructure Proxy)',
@@ -666,8 +666,8 @@ export const THANE_DEMO_OPTIMIZED_SCENARIOS: OptimizationResult = {
         totalEstimatedCostInr: {
           name: 'Total Scenario Cost',
           value: 4950000,
-          formattedValue: '₹49.5 Lakh',
-          unit: 'INR',
+          formattedValue: '$596k USD',
+          unit: 'USD',
           provenance: {
             category: 'MODELED',
             source: 'Cost Engine Optimization Model',
@@ -764,10 +764,10 @@ export const THANE_DEMO_OPTIMIZED_SCENARIOS: OptimizationResult = {
         pros: [
           'Achieves highest combined composite score across flood mitigation, cooling, and biodiversity',
           'Creates a contiguous ecological corridor from west to east',
-          'Delivers maximum visible public greening per rupee spent'
+          'Delivers maximum visible public greening per dollar invested'
         ],
         cons: [
-          'Budget utilization is close to the ₹50 Lakh cap',
+          'Budget utilization is close to the $600k USD cap',
           'Requires coordinated community maintenance across varied intervention types'
         ],
         riskFactors: [
@@ -893,8 +893,8 @@ export const THANE_DEMO_OPTIMIZED_SCENARIOS: OptimizationResult = {
         totalEstimatedCostInr: {
           name: 'Total Scenario Cost',
           value: 4720000,
-          formattedValue: '₹47.2 Lakh',
-          unit: 'INR',
+          formattedValue: '$568k USD',
+          unit: 'USD',
           provenance: {
             category: 'MODELED',
             source: 'Biodiversity Optimization Model',

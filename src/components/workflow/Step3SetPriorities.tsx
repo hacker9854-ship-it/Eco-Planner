@@ -74,7 +74,7 @@ export const Step3SetPriorities: React.FC<Step3SetPrioritiesProps> = ({
     'biodiversity'
   ]);
   const [prompt, setPrompt] = useState<string>(
-    'Reduce monsoon flooding first, then heat, increase biodiversity, and keep the budget below ₹50 lakh.'
+    'Reduce monsoon flooding first, then heat, increase biodiversity, and keep the budget below $600,000 USD.'
   );
   const [budgetLakhs, setBudgetLakhs] = useState<number>(50);
   const [avoidDemolition, setAvoidDemolition] = useState<boolean>(true);
@@ -93,10 +93,11 @@ export const Step3SetPriorities: React.FC<Step3SetPrioritiesProps> = ({
     }, prompt);
   };
 
+  const usdValue = Math.round((budgetLakhs * 100000) / 83);
   const formattedBudget =
-    budgetLakhs >= 100
-      ? `₹${(budgetLakhs / 100).toFixed(1)} crore`
-      : `₹${budgetLakhs} lakh`;
+    usdValue >= 1000000
+      ? `$${(usdValue / 1000000).toFixed(2)}M USD`
+      : `$${Math.round(usdValue / 1000)}k USD`;
 
   return (
     <div className="absolute inset-0 z-20 overflow-y-auto bg-slate-900/35 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center pointer-events-auto">
@@ -176,7 +177,7 @@ export const Step3SetPriorities: React.FC<Step3SetPrioritiesProps> = ({
             rows={2}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="e.g. Reduce monsoon flooding first, then heat, increase biodiversity, and keep the budget below ₹50 lakh."
+            placeholder="e.g. Reduce monsoon flooding first, then heat, increase biodiversity, and keep the budget below $600,000 USD."
             className="w-full p-3 rounded-2xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-emerald-600 leading-relaxed resize-none bg-slate-50/60 focus:bg-white transition"
           />
         </div>
@@ -186,7 +187,7 @@ export const Step3SetPriorities: React.FC<Step3SetPrioritiesProps> = ({
           {/* Budget Range */}
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-700">Budget Constraint</span>
+              <span className="font-bold text-slate-700">Budget Constraint (USD)</span>
               <span className="font-mono font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-lg text-xs">
                 {formattedBudget}
               </span>
@@ -201,9 +202,9 @@ export const Step3SetPriorities: React.FC<Step3SetPrioritiesProps> = ({
               className="w-full accent-emerald-700 cursor-pointer"
             />
             <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
-              <span>₹10 lakh</span>
-              <span>₹50 lakh</span>
-              <span>₹5 crore</span>
+              <span>$12k (Micro)</span>
+              <span>$600k (Standard)</span>
+              <span>$6M (Macro)</span>
             </div>
           </div>
 

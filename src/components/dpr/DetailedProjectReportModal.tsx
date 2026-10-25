@@ -152,7 +152,7 @@ export const DetailedProjectReportModal: React.FC<DetailedProjectReportModalProp
               </div>
               <div>
                 <span className="text-slate-400 block text-[10px] uppercase font-bold">Total Outlay (BOQ)</span>
-                <span className="font-bold text-slate-900 font-mono">₹{totalProjectOutlayLakhs} Lakh</span>
+                <span className="font-bold text-slate-900 font-mono">${Math.round((Number(impact.costINR || 0) * 1.08) / 83).toLocaleString()} USD</span>
               </div>
             </div>
           </div>
@@ -270,28 +270,28 @@ export const DetailedProjectReportModal: React.FC<DetailedProjectReportModalProp
                           {area > 0 ? `${area.toLocaleString()} m²` : `${length.toLocaleString()} m`}
                         </td>
                         <td className="p-2.5 text-right font-mono text-slate-600">
-                          ₹{area > 0 ? Math.round(cost / area) : Math.round(cost / (length || 1))}/unit
+                          ${area > 0 ? (cost / (83 * area)).toFixed(1) : (cost / (83 * (length || 1))).toFixed(1)}/unit
                         </td>
                         <td className="p-2.5 text-right font-mono font-bold text-slate-900">
-                          ₹{(cost / 100000).toFixed(2)} L
+                          ${Math.round(cost / 83).toLocaleString()}
                         </td>
                       </tr>
                     );
                   })}
                   <tr className="bg-slate-50 font-bold">
                     <td colSpan={4} className="p-2.5 text-right text-slate-700">Subtotal Works Outlay:</td>
-                    <td className="p-2.5 text-right font-mono text-slate-900">₹{totalCostLakhs} L</td>
+                    <td className="p-2.5 text-right font-mono text-slate-900">${Math.round(Number(impact.costINR || 0) / 83).toLocaleString()} USD</td>
                   </tr>
                   <tr className="bg-slate-50 text-slate-600">
                     <td colSpan={4} className="p-2 text-right">Physical Contingencies & Site Prep (5%):</td>
-                    <td className="p-2 text-right font-mono">₹{contingenciesLakhs} L</td>
+                    <td className="p-2 text-right font-mono">${Math.round((Number(impact.costINR || 0) * 0.05) / 83).toLocaleString()} USD</td>
                   </tr>
                   <tr className="bg-slate-100 font-black text-slate-900 border-t border-slate-300">
                     <td colSpan={4} className="p-2.5 text-right uppercase tracking-wider text-[11px]">
                       Grand Total Detailed Project Estimate:
                     </td>
                     <td className="p-2.5 text-right font-mono text-emerald-800 text-sm">
-                      ₹{totalProjectOutlayLakhs} Lakh
+                      ${Math.round((Number(impact.costINR || 0) * 1.08) / 83).toLocaleString()} USD
                     </td>
                   </tr>
                 </tbody>

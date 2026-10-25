@@ -64,7 +64,7 @@ export function ImpactCards({ impact }: { impact: Impact }) {
         <Card tone="bg-orange-50 text-orange-600" value={`${Math.round(impact.habitatSharePct)}%`} label="Habitat share of site"
           icon={<Ico><circle cx="12" cy="12" r="2.5" /><circle cx="12" cy="6" r="2.5" /><circle cx="12" cy="18" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="12" r="2.5" /></Ico>} />
         <Card tone="bg-rose-50 text-rose-600" value={fmtINR(impact.costINR)} label="Estimated cost"
-          icon={<span className="text-base font-semibold leading-none">₹</span>} />
+          icon={<span className="text-base font-semibold leading-none">$</span>} />
       </div>
       {impact.unclassified > 0 && (
         <p className="mt-2 text-xs text-amber-700">{impact.unclassified} feature(s) had an unknown type and were not counted.</p>

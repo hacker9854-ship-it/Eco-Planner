@@ -91,8 +91,8 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
     : null;
 
   const costLakhs = scenarioObj
-    ? `₹${(scenarioObj.totalCostInr / 100000).toFixed(1)} Lakh`
-    : '₹44.8 Lakh';
+    ? `$${Math.round(scenarioObj.totalCostInr / 83000)}k USD`
+    : '$540k USD';
 
   // Compute real geometry-based impact
   const siteFeature = useMemo(() => normalizeSite(sitePolygon), [sitePolygon]);
@@ -289,7 +289,7 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
                   {selectedIntervention.properties?.lengthMeters
                     ? `${selectedIntervention.properties.lengthMeters} m length · `
                     : ''}
-                  Est. Cost: ₹{(Number(selectedIntervention.properties?.estimatedCostInr || 0) / 100000).toFixed(1)} Lakh
+                  Est. Cost: ${Math.round(Number(selectedIntervention.properties?.estimatedCostInr || 0) / 83000)}k USD
                 </p>
               </div>
 
@@ -427,7 +427,7 @@ export const ResultsSidebar: React.FC<ResultsSidebarProps> = ({
                   </div>
 
                   <span className="text-[10px] font-mono font-bold text-slate-500 shrink-0">
-                    ₹{(Number(inv.properties?.estimatedCostInr || 0) / 100000).toFixed(1)}L
+                    ${Math.round(Number(inv.properties?.estimatedCostInr || 0) / 83000)}k
                   </span>
                 </button>
               );

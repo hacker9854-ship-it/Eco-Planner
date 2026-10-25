@@ -114,9 +114,10 @@ export class ScenarioOptimizer {
     const canopyInc = Number(((totalArea / 1320000) * 100 * 3.5).toFixed(1));
     const permInc = Number(((totalArea / 1320000) * 100 * 2.8).toFixed(1));
 
-    const costLakhFormatted = currentCost >= 10000000 
-      ? `₹${(currentCost / 10000000).toFixed(2)} Cr` 
-      : `₹${(currentCost / 100000).toFixed(1)} Lakh`;
+    const usdCost = Math.round(currentCost / 83);
+    const costLakhFormatted = usdCost >= 1000000 
+      ? `$${(usdCost / 1000000).toFixed(2)}M USD` 
+      : `$${Math.round(usdCost / 1000)}k USD`;
 
     const now = new Date().toISOString().split('T')[0];
 
@@ -229,7 +230,7 @@ export class ScenarioOptimizer {
       },
       tradeoffs: {
         pros: [
-          `Optimized for ${title} under ₹${(budgetCapInr / 100000).toFixed(0)} Lakh cap`,
+          `Optimized for ${title} under $${Math.round(budgetCapInr / 83000)}k USD cap`,
           `${selected.length} spatial interventions allocated without building demolition`,
           `Estimated runoff interception of ${(totalRunoffLiters / 1000).toFixed(0)}k liters per heavy rainfall event`
         ],

@@ -71,7 +71,7 @@ Output must be strict JSON matching this structure:
     "preserve_roads": true,
     "prioritize_native_species": true
   },
-  "parsedSummary": "Priority ranking: Flooding (P1) > Heat (P2) > Biodiversity (P3) with strict ₹50 Lakh budget and zero building demolition.",
+  "parsedSummary": "Priority ranking: Flooding (P1) > Heat (P2) > Biodiversity (P3) with strict $600,000 USD budget and zero building demolition.",
   "tradeoffAnalysis": "High investment in bioswales and rain gardens will absorb 80%+ monsoon runoff while delivering secondary cooling and pollinator corridors."
 }
 
@@ -155,7 +155,7 @@ Output must be strict JSON matching this structure:
     "preserve_roads": true,
     "prioritize_native_species": true
   },
-  "parsedSummary": "Priority ranking: Flooding (P1) > Heat (P2) > Biodiversity (P3) with strict ₹50 Lakh budget.",
+  "parsedSummary": "Priority ranking: Flooding (P1) > Heat (P2) > Biodiversity (P3) with strict $600,000 USD budget.",
   "tradeoffAnalysis": "High investment in bioswales and rain gardens will absorb 80%+ monsoon runoff while delivering secondary cooling."
 }
 `;
@@ -221,13 +221,22 @@ Output must be strict JSON matching this structure:
     const text = prompt.toLowerCase();
     const goals: GoalRequirement[] = [];
 
-    // Detect Budget in Lakhs / Crores / INR
+    // Detect Budget in USD ($ / K / M) or Lakhs / Crores / INR
     let budget = defaultBudgetInr;
+    const usdKMatch = text.match(/\$\s*(\d+(?:\.\d+)?)\s*(?:k|thousand)/);
+    const usdMMatch = text.match(/\$\s*(\d+(?:\.\d+)?)\s*(?:m|million)/);
+    const usdRawMatch = text.match(/\$\s*(\d+[\d,]*)/);
     const lakhMatch = text.match(/(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lakh|lacs|lac)/);
     const croreMatch = text.match(/(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:crore|cr)/);
     const numberMatch = text.match(/(?:₹|rs\.?|inr)\s*(\d+[\d,]*)/);
 
-    if (lakhMatch) {
+    if (usdMMatch) {
+      budget = parseFloat(usdMMatch[1]) * 1e6 * 83;
+    } else if (usdKMatch) {
+      budget = parseFloat(usdKMatch[1]) * 1e3 * 83;
+    } else if (usdRawMatch) {
+      budget = parseInt(usdRawMatch[1].replace(/,/g, ''), 10) * 83;
+    } else if (lakhMatch) {
       budget = parseFloat(lakhMatch[1]) * 100000;
     } else if (croreMatch) {
       budget = parseFloat(croreMatch[1]) * 10000000;
@@ -315,10 +324,11 @@ Output must be strict JSON matching this structure:
       goals.push({ name: 'biodiversity', priority: 3, description: 'Urban biodiversity stepping stones' });
     }
 
+    const usdEquiv = Math.round(budget / 83);
     const budgetFormatted =
-      budget >= 10000000
-        ? `₹${(budget / 10000000).toFixed(1)} Cr`
-        : `₹${(budget / 100000).toFixed(0)} Lakh`;
+      usdEquiv >= 1000000
+        ? `$${(usdEquiv / 1000000).toFixed(2)}M USD`
+        : `$${Math.round(usdEquiv / 1000)}k USD`;
 
     return {
       naturalLanguagePrompt: prompt,
